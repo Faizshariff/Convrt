@@ -1,0 +1,15 @@
+{
+    "configurations": [
+        {
+            "name": "Docker Node.js Launch",
+            "type": "docker",
+            "request": "launch",
+            "preLaunchTask": "docker-run: debug",
+            "platform": "node",
+            "node": {
+                "package": "${workspaceFolder}/.wasp/build/package.json",
+                "localRoot": "${workspaceFolder}/.wasp/build"
+            }
+        }
+    ]
+}

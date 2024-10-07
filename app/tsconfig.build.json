@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+      "target": "ES2020",
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "esModuleInterop": true,
+      "strict": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true,
+      "outDir": ".wasp/build",
+      "rootDir": "src",
+      "jsx": "react-jsx",
+      "allowJs": true,
+      "resolveJsonModule": true,
+      "isolatedModules": true,
+      "baseUrl": ".",
+      "paths": {
+        "@/*": ["./*"]
+      }
+    },
+    "include": ["src/**/*"],
+    "exclude": ["node_modules", ".wasp"]
+  }

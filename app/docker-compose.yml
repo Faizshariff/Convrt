@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql://postgresWaspDevUser:postgresWaspDevPass@db:5432/OpenSaaS-5209e55c9d
+
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgresWaspDevUser
+      POSTGRES_PASSWORD: postgresWaspDevPass
+      POSTGRES_DB: OpenSaaS-5209e55c9d
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
