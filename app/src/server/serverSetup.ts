@@ -9,7 +9,7 @@ export const serverMiddlewareFn = (middlewareConfig: any) => {
     cors({
       origin: [
         config.frontendUrl, 
-        'https://super-meme-r4prx55vqxgqh5gjv-3000.app.github.dev'
+        'https://vigilant-broccoli-jwgwwg94vp6h554-3000.app.github.dev/'
       ],
       credentials: true  // Allow credentials (cookies, auth tokens)
     })
