@@ -10,7 +10,7 @@ interface LocationSuggestion {
 // Fetches location data from LocationIQ (no need to cache here since it's handled in the hook)
 export const fetchLocationSuggestions = async (query: string): Promise<LocationSuggestion[]> => {
   const encodedQuery = encodeURIComponent(query);
-  const url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${encodedQuery}&format=json`;
+  const url = `https://us1.locationiq.com/v1/search?key=${import.meta.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${encodedQuery}&format=json`;
   try {
     const response = await axios.get(url);
     return response.data.map((item: { display_name: string; lat: string; lon: string }) => ({
@@ -45,7 +45,7 @@ export const fetchBusinessData = async (inputValue: string, lat: string, lon: st
         extract_emails_and_contacts: true,
       },
       headers: {
-        'x-rapidapi-key': process.env.REACT_APP_MAPSDATA_API_KEY ,
+        'x-rapidapi-key': import.meta.env.REACT_APP_MAPSDATA_API_KEY ,
         'x-rapidapi-host': 'local-business-data.p.rapidapi.com',
       },
     });
