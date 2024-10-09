@@ -1,88 +1,119 @@
-## Welcome to your new SaaS App! 🎉
-<a href="https://www.producthunt.com/posts/open-saas?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-open&#0045;saas" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=436467&theme=light" alt="Open&#0032;SaaS - Open&#0045;source&#0032;&#0038;&#0032;100&#0037;&#0032;free&#0032;React&#0032;&#0038;&#0032;Node&#0046;js&#0032;SaaS&#0032;starter&#0033; | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+![BANNER](https://github.com/user-attachments/assets/bd775bda-7953-42bb-af5f-a66c22468243)
+<!--
+Hi! This is an easter egg.
+Congratulations you found the first one!
+-->
 
-https://github.com/wasp-lang/open-saas/assets/70215737/5ff289b1-12b9-4b46-aa90-a6a3122de93e
+<!-- # 👀 Hi stranger! 👋🏻 -->
 
-You've decided to build a SaaS app with the Open SaaS template. Great choice! 
+# 🗺️ Travel Hub
 
-This template is:
+This web application is a modern feature-rich GMaps clone built with Next.js, aimed at providing users with weather conditions, nearby restaurants, and attractions based on their current or searched location. It also includes features like dark mode and autocomplete suggestions for places. Directions to selected restaurants or attractions are also rendered, with links to TripAdvisor pages.
 
-1. fully open-source
-2. completely free to use and distribute
-3. comes with a ton of features out of the box!
-4. focused on free, open-source services, where possible
+- 📍 Geolocation-based weather display
+- 🍽️ Search for nearby restaurants and attractions
+- 🔍 Autocomplete search suggestions
+- 🗺️ Directions rendering
+- 🌓 Dark mode support
+- 📱 Responsive design
 
-🧑‍💻 Check it out in action here: [OpenSaaS.sh](https://opensaas.sh)  
-📚 Check out the Docs here: [Open SaaS Docs](https://docs.opensaas.sh)
 
-## What's inside?
 
-The template itself is built on top of some very powerful tools and frameworks, including:
+# Tech stack:
 
-- 🐝 [Wasp](https://wasp-lang.dev) - a full-stack React, NodeJS, Prisma framework with superpowers
-- 🚀 [Astro](https://starlight.astro.build/) - Astro's lightweight "Starlight" template for documentation and blog
-- 💸 [Stripe](https://stripe.com) - for products and payments
-- 📈 [Plausible](https://plausible.io) or [Google](https://analytics.google.com/) Analytics
-- 🤖 [OpenAI](https://openai.com) - OpenAI API integrated into the app or [Replicate](https://replicate.com/) (coming soon 👀)
-- 📦 [AWS S3](https://aws.amazon.com/s3/) - for file uploads
-- 📧 [SendGrid](https://sendgrid.com), [MailGun](https://mailgun.com), or SMTP - for email sending
-- 💅 [TailwindCSS](https://tailwindcss.com) - for styling
-- 🧑‍💼 [TailAdmin](https://tailadmin.com/) - admin dashboard & components for TailwindCSS
-- 🧪 [Playwright](https://playwright.dev) - end-to-end tests with Playwright
+- **Framework**: Next.js with TypeScript
+- **Map Rendering**: Mapbox GL, react-map-gl
+- **Styling**: Material-UI , Tailwind CSS
+- **APIs**:  
+  - Mapbox API : displaying interactive maps and rendering location data on the map
+  - Geolocation API : Native JavaScript API used to get the user's current geographical location.
+  - Travel Advisor API (RapidAPI) : Provides details on nearby restaurants and attractions based on the user's or searched location.
+  - Weather-api (RapidAPI) : Fetches and displays the weather condition of the user's current location.
+  - LocationIQ : Used for autocomplete suggestions while searching and for retrieving directions between the user and the target location.
+- **Libraries and packages**:
+  - react-map-gl for integrating Mapbox with React.
+  - axios for making API requests.
+  - lodash, framer-motion and more for additional functionality.
 
-Because we're using Wasp as the full-stack framework, we can leverage a lot of its features to build our SaaS in record time, including:
 
-- 🔐 [Full-stack Authentication](https://wasp-lang.dev/docs/auth/overview) - Email verified + social Auth in a few lines of code.
-- ⛑ [End-to-end Type Safety](https://wasp-lang.dev/docs/data-model/operations/overview) - Type your backend functions and get inferred types on the front-end automatically, without the need to install or configure any third-party libraries. Oh, and type-safe Links, too!
-- 🤖 [Jobs](https://wasp-lang.dev/docs/advanced/jobs) - Run cron jobs in the background or set up queues simply by defining a function in the config file.
-- 🚀 [One-command Deploy](https://wasp-lang.dev/docs/advanced/deployment/overview) - Easily deploy via the CLI to [Fly.io](https://fly.io), or to other providers like [Railway](https://railway.app) and [Netlify](https://netlify.com).
+## 📁 Project Structure
 
-You also get access to Wasp's diverse, helpful community if you get stuck or need help.
-- 🤝 [Wasp Discord](https://discord.gg/aCamt5wCpS)
-
-## Getting Started
-
-### Simple Instructions
-
-First, to install the latest version of [Wasp](https://wasp.sh/) on macOS, Linux, or Windows with WSL, run the following command:
-```bash
-curl -sSL https://get.wasp-lang.dev/installer.sh | sh
 ```
-
-Then, create a new SaaS app with the following command:
-
-```bash
-wasp new -t saas
+├── pages/
+│   ├── api/
+│   │   └── indexapi.js                        # API route for server-side data fetching
+│   ├── Components/                            # Reusable components for the app
+│   │   ├── Autocomplete.tsx
+│   │   ├── Details.tsx
+│   │   ├── Gmap.tsx
+│   │   ├── List.tsx
+│   │   └── Search.tsx
+│   ├── _app.tsx                                # Home page (root)
+│   └── index.tsx                               # Main app entry
+├── public/Components                           # Public assets (images, icons, etc.)
+├── styles/
+├── .env.local                                  # Environment variables
+├── next.config.js
+├── package.json
+└── tsconfig.json
 ```
+---
 
-This will clone a **clean copy of the Open SaaS template** into a new directory, and you can start building your SaaS app right away!
+# HLD of application
 
-### Detailed Instructions
-
-For everything you need to know about getting started and using this template, check out the [Open SaaS Docs](https://docs.opensaas.sh).
-
-We've documented everything in great detail, including installation instructions, pulling updates to the template, guides for integrating services, SEO, deployment, and more. 🚀
+![design2](https://github.com/user-attachments/assets/fb3263b3-4161-4eb5-a04d-0e763394a63c)
 
 
-## Changes & Contributions
+---
 
-### Template Versioning 
+# Module Explanations
 
-Whenever a user starts a new Open SaaS project with `wasp new -t saas`, Wasp looks for a specific tag on the repo, and pulls the project at the commit associated with that tag. In the case of Open SaaS, the tag is `wasp-v{{version}}-template`, where `{{version}}` is the current version of Wasp, e.g. `wasp-v0.13-template`.
+### `pages/api`
+- **indexapi.js**: Handles server-side data fetching. All API calls made from the application are defined here, ensuring centralized management of data interactions.
 
-For simplicity, we automatically re-apply the tag to the most recent commit on the `main` branch via the `.github/workflows/retag-commit.yml` workflow. This way, users always get the latest version of the template when they start a new project via `wasp new -t saas`.d
+### `pages/Components`
+- **Autocomplete.tsx**: Autocomplete component that manages the autocomplete functionality for the search bar.
+- **Details.tsx**: Subpage for each individual restaurent or attraction card
+- **Gmap.tsx**: Main component for integrating and displaying the MapBox map.
+- **List.tsx**: Manages the rendering of lists of places such as restaurants or attractions & weather based on user's location or search results.
+- **Search.tsx**: Search bar component that Implements the search functionality, handling user input
 
-### Contributing
+### `pages/_index.tsx`
+This is the main entry point of application or parent component 
 
-Note that we've tried to get as many of the core features of a SaaS app into this template as possible, but there still might be some missing features or functionality.
 
-We could always use some help tying up loose ends, so consider [contributing](https://github.com/wasp-lang/open-saas/blob/main/CONTRIBUTING.md)!
+## Key Fixes & Improvements
 
-As there are a few things to know and consider when contributing, please make sure to read the [CONTRIBUTING.md](https://github.com/wasp-lang/open-saas/blob/main/CONTRIBUTING.md) in this Repo.
+### ⭐ Debouncing API Calls in Search
+To optimize the search functionality and prevent exceeding the API request limits, I implemented **debouncing** in the `Search.tsx` component. Previously, continuous API calls were made as the user typed in the search bar, resulting in 429 errors (api call rate limit exceeded). With debouncing, the API call is now delayed by 500ms, ensuring more efficient handling of user input and reducing excessive API requests.
 
-## Getting Help & Providing Feedback
+### ⭐ Custom Directions Rendering in Mapbox
+During the time of developement of this project Mapbox didnt come with native directions feature. To resolve this, I utilized the **Location IQ API** to fetch route data and then manually map the directions on the map using Mapbox's **Layer** functionality. The start and end locations are passed to the API, and the response is used to draw the route on the map, providing a seamless directions experience.
 
-There are two ways to get help or provide feedback (and we try to always respond quickly!):
-1. [Open an issue](https://github.com/wasp-lang/open-saas/issues)
-2. [Wasp Discord](https://discord.gg/aCamt5wCpS) -- please direct questions to the #🙋questions forum channel
-# mail-tool
+
+
+### <h1>Installation</h1>
+
+1. Clone the repository or Download the code and open Travelhub Folder with any code editor
+   ```sh
+   git clone https://github.com/Faizshariff/Travel-hub.git
+   ```
+
+2. Install dependencies
+   ```sh
+   npm install
+   ```
+
+3. Set up environment variables
+   Create a `.env.local` file if it doesnt exist in the root directory and add:
+   ```
+   NEXT_PUBLIC_REACT_APP_MAPBOX_API_KEY_SECURE=your_mapbox_token
+   NEXT_PUBLIC_REACT_APP_RAPIDAPI_API_KEY_SECURE=your_traveladvisor_rapidapi_key
+   NEXT_PUBLIC_REACT_APP_LOCATIONIQ_API_KEY_SECURE=your_locationiq_token
+   NEXT_PUBLIC_REACT_APP_WEATHER_API_KEY=your_weather-api.com_key
+   ```
+
+4. Start the development server
+   ```sh
+   npm run dev
+   ```
