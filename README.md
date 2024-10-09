@@ -22,34 +22,39 @@ Convrt is a full-stack web application built with Wasp, designed and aimed towar
 
 
 
-# Tech stack:
+# Tech Stack:
 
-- **Frontend & Backend**: Wasp full-stack framework with React (Frontned), Node.js (Backend), 
-- **Database**: Prisma ORM with PostgreSQL (wasp)
-- **meta framework**: Astro for Blogs
+- **Frontend & Backend**: Wasp full-stack framework with React (Frontend), Node.js (Backend) 
+- **Database**: Prisma ORM with PostgreSQL (Wasp)
+- **Meta Framework**: Astro for Blogs
+
 - **APIs**:
   - **SendGrid API**: Handles email sending & event webhooks.
-  - **Location IQ**: Handles autocomplete suggestions
-  - **Local Business Data (Rapid api)** : Used to fetch local business data based on query & location
+  - **Location IQ**: Handles autocomplete suggestions.
+  - **Local Business Data (RapidAPI)**: Used to fetch local business data based on query & location.
   - **Google Analytics API**: Integrated for tracking user activity and page views in the admin dashboard.
   - **Stripe API**: Handles subscription management, payment processing, and viewing revenue data.
+
 - **Styling**: 
   - **Tailwind CSS**: Utility-first CSS framework for styling.
   - **Material-UI (MUI)**: React components for faster and easier web development.
-  - **Mantine ui**: prebuilt ui React components
-  - **TailAdmin**: admin dashboard & components for TailwindCSS
+  - **Mantine UI**: Prebuilt UI React components.
+  - **TailAdmin**: Admin dashboard & components for TailwindCSS.
+
 - **Data Visualization**: 
   - **Mantine Charts**: Interactive charts to display email campaign statistics such as open, bounce, and delivery rates.
   - **ApexCharts**: Additional charting library used for the admin dashboard.
-- **Libraries and packages**:
+
+- **Libraries and Packages**:
   - **React Email Editor (Unlayer)**: For creating and managing email templates.
-  - **p-queue** : Split the recipients into batches & Process each batch with concurrency control
-  - **Lodash** : Rate limiting
+  - **p-queue**: Split the recipients into batches & process each batch with concurrency control.
+  - **Lodash**: Rate limiting.
   - **Axios**: Used for making API requests.
   - **Framer Motion**: Animations and transitions for user interfaces.
   - **PapaParse**: CSV parsing and processing.
 
-
+- **Deployment & Infrastructure**:
+  - **Docker**: Containerization for consistent application deployment across different environments.
 
 
 
@@ -64,7 +69,7 @@ Convrt is a full-stack web application built with Wasp, designed and aimed towar
 ├── CONTRIBUTING.md
 ├── .gitignore
 ├── .gitattributes
-├── blog/
+├── blog/                                        #**Main blogs feature Folder**
 │   ├── tsconfig.json
 │   ├── tailwind.config.mjs
 │   ├── README.md
@@ -79,13 +84,13 @@ Convrt is a full-stack web application built with Wasp, designed and aimed towar
 │   │   ├── styles/
 │   │   │   └── tailwind.css                   # Blog-specific styling
 │   │   ├── content/                           # Blog content files
-│   │   │   ├── config.ts                      # Configuration for blog content
+│   │   │   ├── config.ts                      
 │   │   │   ├── docs/
 │   │   │   │   ├── index.md                   # Main documentation page
 │   │   │   │   └── guides/
 │   │   │   │       └── example.md             # Example guide
 │   │   │   ├── blog/                          # Blog posts folder
-│   │   │       └── 2023-11-23-post.md         # Example blog post
+│   │   │       
 │   │   └── components/                        # Reusable blog components
 │   │       └── MyHeader.astro                 # Header component for the blog
 │   ├── assets/                                # Blog-specific assets (images, logos, etc.)
@@ -93,7 +98,7 @@ Convrt is a full-stack web application built with Wasp, designed and aimed towar
 │   └── .vscode/
 │       ├── launch.json
 │       └── extensions.json
-├── app/
+├── app/                                       # **Main application Folder** 
 │   ├── vite.config.ts
 │   ├── tsconfig.json
 │   ├── tsconfig.build.json
@@ -102,82 +107,88 @@ Convrt is a full-stack web application built with Wasp, designed and aimed towar
 │   ├── postcss.config.cjs
 │   ├── package.json
 │   ├── package-lock.json
-│   ├── main.wasp                              # Wasp configuration file
+│   ├── main.wasp                              # Main Wasp configuration file
 │   ├── fly.toml                               # Fly.io deployment configuration
 │   ├── fly-server.toml
 │   ├── fly-client.toml
 │   ├── Dockerfile                             # Dockerfile for containerizing the app
 │   ├── docker-compose.yml                     # Docker Compose configuration
 │   ├── docker-compose.debug.yml
-│   ├── src/
+│   ├── src/                                   #**Entry Folder for the application**
 │   │   ├── vite-env.d.ts
-│   │   ├── shared/                            # Shared utilities and constants
-│   │   │   ├── utils.ts                       # Utility functions
-│   │   │   ├── types.ts                       # Shared types
-│   │   │   └── constants.ts                   # Global constants
-│   │   ├── server/                            # Backend server code
+│   │   ├── shared/                            # Shared utilities, types and constants
+│   │   │   ├── utils.ts                       
+│   │   │   ├── types.ts                       
+│   │   │   └── constants.ts                   
+│   │   ├── server/                            # **Backend server Folder**
 │   │   │   ├── serverSetup.ts                 # Server setup and configuration
-│   │   │   ├── queries.ts                     # Database queries
-│   │   │   ├── actions.ts                     # Server actions
+│   │   │   ├── queries.ts                     # wasp Database queries
+│   │   │   ├── actions.ts                     # wasp Server actions
 │   │   │   ├── workers/                       # Background worker scripts
-│   │   │   │   ├── plausibleAnalyticsUtils.ts # Plausible analytics worker
-│   │   │   │   ├── googleAnalyticsUtils.ts    # Google Analytics worker
-│   │   │   │   ├── checkAndQueueEmails.ts     # Email queue worker
-│   │   │   │   └── calculateDailyStats.ts     # Worker for daily stats calculation
+│   │   │   │   ├── plausibleAnalyticsUtils.ts 
+│   │   │   │   ├── googleAnalyticsUtils.ts    
+│   │   │   │   ├── checkAndQueueEmails.ts     
+│   │   │   │   └── calculateDailyStats.ts     
 │   │   │   ├── webhooks/                      # Webhook handlers
-│   │   │   │   ├── stripe.ts                  # Stripe webhook handler
-│   │   │   │   └── emailsns.ts                # SNS email webhook handler
-│   │   │   ├── sendmail/                      # Email sending utilities
-│   │   │   │   └── sesUtils.ts                # AWS SES email utility
+│   │   │   │   ├── stripe.ts                  
+│   │   │   │   └── emailsns.ts                
+│   │   │   ├── sendmail/                      # Main Email sending Utility
+│   │   │   │   └── sesUtils.ts                
 │   │   │   ├── scripts/                       # Helper scripts
-│   │   │   │   └── usersSeed.ts               # Database seed script
+│   │   │   │   └── usersSeed.ts               
 │   │   │   ├── payments/                      # Payment-related logic
-│   │   │   │   └── stripeUtils.ts             # Stripe utilities
+│   │   │   │   └── stripeUtils.ts             
 │   │   │   ├── auth/                          # Authentication-related logic
-│   │   │   │   ├── setUsername.ts             # Username setup logic
-│   │   │   │   ├── sendGridEmailSender.js     # SendGrid email utility
-│   │   │   │   ├── email.ts                   # Email utility functions
-│   │   │   │   └── users/                     # User management logic
-│   │   │   │       ├── verification.ts        # User verification
-│   │   │   │       └── users.ts               # User-related functions
-│   │   ├── client/                            # Frontend code
+│   │   │   │   ├── setUsername.ts             
+│   │   │   │   ├── sendGridEmailSender.js     
+│   │   │   │   ├── email.ts                   
+│   │   │   │   └── users/                     # User verification & management logic
+│   │   │   │       ├── verification.ts        
+│   │   │   │       └── users.ts               
+│   │   ├── client/                            # **Frontend Client Folder**
 │   │   │   ├── Main.css                       # Main CSS for the frontend
 │   │   │   ├── App.tsx                        # Main app component
-│   │   │   ├── utils/
+│   │   │   ├── utils/                         # utilitlies for the frontend
 │   │   │   │   └── Api.ts                     # API utility for client-side requests
 │   │   │   ├── static/                        # Static assets (images, icons, etc.)
-│   │   │   ├── mails/
-│   │   │   │   ├── template.tsx               # Email template component
-│   │   │   │   └── default.tsx                # Default email template
+│   │   │   ├── mails/                         # Email template components
+│   │   │   │   ├── template.tsx               
+│   │   │   │   └── default.tsx                
 │   │   │   ├── landing-page/                  # Landing page components
-│   │   │   │   ├── Testimonials.tsx           # Testimonials section
-│   │   │   │   ├── LandingPage.tsx            # Landing page component
-│   │   │   │   ├── Footer.tsx                 # Footer section
-│   │   │   │   ├── Features.tsx               # Features section
-│   │   │   │   └── Customerlogo.tsx           # Customer logo section
+│   │   │   │   ├── Testimonials.tsx          
+│   │   │   │   ├── LandingPage.tsx            
+│   │   │   │   ├── Footer.tsx                 
+│   │   │   │   ├── Features.tsx               
+│   │   │   │   └── Customerlogo.tsx           
 │   │   │   ├── hooks/                         # Custom React hooks
-│   │   │   │   ├── useModal.tsx               # Modal hook
-│   │   │   │   ├── useLocalStorage.tsx        # Local storage hook
-│   │   │   │   └── useColorMode.tsx           # Hook for managing color mode
+│   │   │   │   ├── useModal.tsx               
+│   │   │   │   ├── useLocalStorage.tsx       
+│   │   │   │   └── useColorMode.tsx           
 │   │   │   ├── components/                    # Reusable components
-│   │   │   │   ├── DropdownUser.tsx           # Dropdown menu for user actions
-│   │   │   │   ├── AppNavBar.tsx              # Application navigation bar
+│   │   │   │   ├── DropdownUser.tsx           
+│   │   │   │   ├── AppNavBar.tsx              
 │   │   │   │   ├── MailboardPage/             # Mailboard page components
 │   │   │   │   ├── ContactPage/               # Contact page components
 │   │   │   │   ├── CampaignPage/              # Campaign page components
 │   │   │   ├── auth/                          # Authentication components
 │   │   │   ├── app/                           # Main app pages
-│   │   ├── admin/                             # Admin dashboard and pages
-│   │   │   ├── pages/
-│   │   │   │   ├── Users.tsx                  # Admin user management page
-│   │   │   │   ├── Settings.tsx               # Admin settings page
-│   │   │   │   ├── Messages.tsx               # Admin messages page
-│   │   │   │   ├── DashboardPage.tsx          # Admin dashboard page
-│   │   │   │   ├── Chart.tsx                  # Admin chart page
+│   │   │   │   ├── PricingPage.tsx
+│   │   │   │   ├── Mailboard.tsx
+│   │   │   │   ├── ContactsPage.tsx
+│   │   │   │   ├── CheckoutPage.tsx
+│   │   │   │   ├── CampaignPage.tsx
+│   │   │   │   └── AccountPage.tsx
+│   │   ├── admin/                             # **Main Admin dashboard Folder**
+│   │   │   ├── pages/                         # Admin dahsboard pages
+│   │   │   │   ├── Users.tsx                  
+│   │   │   │   ├── Settings.tsx               
+│   │   │   │   ├── Messages.tsx               
+│   │   │   │   ├── DashboardPage.tsx          
+│   │   │   │   ├── Chart.tsx                  
 │   │   │   │   └── UiElements/                # Admin UI components
 │   │   │   ├── layout/                        # Admin layout components
-│   │   │   ├── images/                        # Admin-specific icons and images
-│   │   │   ├── fonts/                         # Custom fonts used in the admin UI
+│   │   │   ├── images/                        
+│   │   │   ├── fonts/
 │   │   │   ├── components/                    # Admin reusable components
 │   │   ├── public/                            # Public assets (banners, icons, etc.)
 │   ├── node_modules/
