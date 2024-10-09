@@ -6,10 +6,8 @@ import {
   type GetPaginatedUsers,
   type GetAllTasksByUser,
   type GetAllFilesByUser,
-  type GetDownloadFileSignedURL,
   type GetCampaigns
 } from 'wasp/server/operations';
-import { getDownloadFileSignedURLFromS3 } from './file-upload/s3Utils.js';
 import { type SubscriptionStatusOptions } from '../shared/types.js';
 
 type DailyStatsWithSources = DailyStats & {
@@ -83,12 +81,7 @@ export const getAllFilesByUser: GetAllFilesByUser<void, File[]> = async (_args, 
   });
 };
 
-export const getDownloadFileSignedURL: GetDownloadFileSignedURL<{ key: string }, string> = async (
-  { key },
-  _context
-) => {
-  return await getDownloadFileSignedURLFromS3({ key });
-};
+
 
 export const getDailyStats: GetDailyStats<void, DailyStatsValues> = async (_args, context) => {
   if (!context.user?.isAdmin) {

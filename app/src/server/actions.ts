@@ -8,19 +8,17 @@ import {
   type CreateTask,
   type DeleteTask,
   type UpdateTask,
-  type CreateFile,
   type CreateCampaign
 } from 'wasp/server/operations';
 import Stripe from 'stripe';
 import type { GeneratedSchedule, StripePaymentResult } from '../shared/types';
 import { fetchStripeCustomer, createStripeCheckoutSession } from './payments/stripeUtils.js';
 import { TierIds } from '../shared/constants.js';
-import { getUploadFileSignedURLFromS3 } from './file-upload/s3Utils.js';
 import OpenAI from 'openai';
 import { sendEmail } from './sendmail/sesUtils';
 import { Manageawsuser } from './users/users';
 import { checkIdentity } from './users/verification';
-import { getCampaigns } from './queries';
+
 
 export const awsuser = ({username }: any) => {
   Manageawsuser(username)
@@ -31,9 +29,6 @@ export const importmail = ({data , userId}:any) => {
   checkIdentity(data,userId)
 } 
 
-export const hellno = ({ to, from, subject, body, tag } : any) => {
-  console.log('hell no jay')
-}
 
 const openai = setupOpenAI();
 function setupOpenAI() {
@@ -314,9 +309,6 @@ export const createCampaign: CreateCampaign<{
   // Extract email IDs for sending function
   const emailIDs = emailData.map(email => email.id);
 
-  // Send emails with unique IDs and merge tags
-
-  console.log("this is console from action ",schedule)
 
   sendEmail({ to, from, subject, body, tag, schedule, emailIDs, mergeTags,  context: context });
 
@@ -380,30 +372,7 @@ export const updateUserById: UpdateUserById<{ id: number; data: Partial<User> },
   return updatedUser;
 };
 
-type fileArgs = {
-  fileType: string;
-  name: string;
-};
 
-export const createFile: CreateFile<fileArgs, File> = async ({ fileType, name }, context) => {
-  if (!context.user) {
-    throw new HttpError(401);
-  }
-
-  const userInfo = context.user.id.toString();
-
-  const { uploadUrl, key } = await getUploadFileSignedURLFromS3({ fileType, userInfo });
-
-  return await context.entities.File.create({
-    data: {
-      name,
-      key,
-      uploadUrl,
-      type: fileType,
-      user: { connect: { id: context.user.id } },
-    },
-  });
-};
 
 export const updateCurrentUser: UpdateCurrentUser<Partial<User>, User> = async (user, context) => {
   if (!context.user) {

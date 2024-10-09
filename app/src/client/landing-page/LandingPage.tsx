@@ -4,14 +4,13 @@ import { useState } from 'react';
 import { Dialog } from '@headlessui/react';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { HiBars3 } from 'react-icons/hi2';
-import { BiLogIn } from 'react-icons/bi';
 import {  navigation, } from './contentSections';
 import DropdownUser from '../components/DropdownUser';
 import { UserMenuItems } from '../components/UserMenuItems';
 import Testimonials from './Testimonials';
 import Features from './Features';
 import Footer from './Footer';
-import ShinyButton from '../components/Button'
+import ShinyButton from '../components/Button' ;
 import CustomerLogo from './Customerlogo';
 import { useScroll, useTransform, motion } from "framer-motion";
 import { useRef } from "react";

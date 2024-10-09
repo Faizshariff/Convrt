@@ -1,5 +1,5 @@
 import { type GetVerificationEmailContentFn, type GetPasswordResetEmailContentFn } from "wasp/server/auth";
-import { sendverifyEmail } from "../email/sendGridEmailSender";
+import { sendverifyEmail } from "./sendGridEmailSender";
 
 export const getVerificationEmailContent: GetVerificationEmailContentFn = ({ verificationLink }) => ({
   subject: 'Verify your email',

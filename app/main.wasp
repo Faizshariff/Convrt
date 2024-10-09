@@ -343,9 +343,7 @@ action importmail{
 }
 
 
-action hellno {
-  fn: import { hellno }  from "@src/server/actions.js",
-}
+
 
 action generateGptResponse {
   fn: import { generateGptResponse } from "@src/server/actions.js",
@@ -387,10 +385,7 @@ action updateUserById {
   entities: [User]
 }
 
-action createFile {
-  fn: import { createFile } from "@src/server/actions.js",
-  entities: [User, File]
-}
+
 
 
 // 📚 Queries
@@ -410,10 +405,6 @@ query getAllFilesByUser {
   entities: [User, File]
 }
 
-query getDownloadFileSignedURL {
-  fn: import { getDownloadFileSignedURL } from "@src/server/queries.js",
-  entities: [User, File]
-}
 
 query getDailyStats {
   fn: import { getDailyStats } from "@src/server/queries.js",
@@ -442,7 +433,7 @@ api stripeWebhook {
 }
 
 api emailsns {
-  fn: import { emailsns } from "@src/server/api/emailsns",
+  fn: import { emailsns } from "@src/server/webhooks/emailsns",
   auth: true,
   entities: [Email],
   httpRoute: (POST, "/sns/mailpoint")
