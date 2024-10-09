@@ -1,39 +1,56 @@
-![BANNER](https://github.com/user-attachments/assets/bd775bda-7953-42bb-af5f-a66c22468243)
+![Group 7 (2)](https://github.com/user-attachments/assets/846beedf-5e1d-48cd-9d12-ad7486152c03)
+
 <!--
 Hi! This is an easter egg.
-Congratulations you found the first one!
+Congratulations youre one!
 -->
 
 <!-- # 👀 Hi stranger! 👋🏻 -->
 
-# 🗺️ Travel Hub
+# CONVRT
 
-This web application is a modern feature-rich GMaps clone built with Next.js, aimed at providing users with weather conditions, nearby restaurants, and attractions based on their current or searched location. It also includes features like dark mode and autocomplete suggestions for places. Directions to selected restaurants or attractions are also rendered, with links to TripAdvisor pages.
+Convrt is a full-stack web application built with Wasp, designed and aimed towards agency owners who target local business owners , its built to streamline lead generation and email marketing campaigns. With a robust scraping feature, users can target specific locations and business types to collect leads efficiently. and manage them with ease
 
-- 📍 Geolocation-based weather display
-- 🍽️ Search for nearby restaurants and attractions
-- 🔍 Autocomplete search suggestions
-- 🗺️ Directions rendering
-- 🌓 Dark mode support
-- 📱 Responsive design
+- 🌍 **Geolocation & Business type based lead scraping**
+- 📝 **lead management system**
+- 📂 **CSV file upload for bulk leads**
+- 💻 **Email template editor**
+- 📅 **Campaign creation & scheduling**
+- 📈 **Detailed analytics**
+- 📱 **Responsive design**
+- 👥 **Admin Dashboard with payment intergration & Site analytics**
 
 
 
 # Tech stack:
 
-- **Framework**: Next.js with TypeScript
-- **Map Rendering**: Mapbox GL, react-map-gl
-- **Styling**: Material-UI , Tailwind CSS
-- **APIs**:  
-  - Mapbox API : displaying interactive maps and rendering location data on the map
-  - Geolocation API : Native JavaScript API used to get the user's current geographical location.
-  - Travel Advisor API (RapidAPI) : Provides details on nearby restaurants and attractions based on the user's or searched location.
-  - Weather-api (RapidAPI) : Fetches and displays the weather condition of the user's current location.
-  - LocationIQ : Used for autocomplete suggestions while searching and for retrieving directions between the user and the target location.
+- **Frontend & Backend**: Wasp full-stack framework with React (Frontned), Node.js (Backend), 
+- **Database**: Prisma ORM with PostgreSQL (wasp)
+- **meta framework**: Astro for Blogs
+- **APIs**:
+  - **SendGrid API**: Handles email sending & event webhooks.
+  - **Location IQ**: Handles autocomplete suggestions
+  - **Local Business Data (Rapid api)** : Used to fetch local business data based on query & location
+  - **Google Analytics API**: Integrated for tracking user activity and page views in the admin dashboard.
+  - **Stripe API**: Handles subscription management, payment processing, and viewing revenue data.
+- **Styling**: 
+  - **Tailwind CSS**: Utility-first CSS framework for styling.
+  - **Material-UI (MUI)**: React components for faster and easier web development.
+  - **Mantine ui**: prebuilt ui React components
+  - **TailAdmin**: admin dashboard & components for TailwindCSS
+- **Data Visualization**: 
+  - **Mantine Charts**: Interactive charts to display email campaign statistics such as open, bounce, and delivery rates.
+  - **ApexCharts**: Additional charting library used for the admin dashboard.
 - **Libraries and packages**:
-  - react-map-gl for integrating Mapbox with React.
-  - axios for making API requests.
-  - lodash, framer-motion and more for additional functionality.
+  - **React Email Editor (Unlayer)**: For creating and managing email templates.
+  - **p-queue** : Split the recipients into batches & Process each batch with concurrency control
+  - **Lodash** : Rate limiting
+  - **Axios**: Used for making API requests.
+  - **Framer Motion**: Animations and transitions for user interfaces.
+  - **PapaParse**: CSV parsing and processing.
+
+
+
 
 
 ## 📁 Project Structure
