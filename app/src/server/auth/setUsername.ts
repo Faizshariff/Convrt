@@ -1,5 +1,5 @@
 import { defineUserSignupFields } from 'wasp/auth/providers/types';
-import { Manageawsuser } from '../users/users';
+import { Manageawsuser } from './users/users';
 
 const adminEmails = process.env.ADMIN_EMAILS?.split(',') || [];
 

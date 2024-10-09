@@ -16,8 +16,8 @@ import { fetchStripeCustomer, createStripeCheckoutSession } from './payments/str
 import { TierIds } from '../shared/constants.js';
 import OpenAI from 'openai';
 import { sendEmail } from './sendmail/sesUtils';
-import { Manageawsuser } from './users/users';
-import { checkIdentity } from './users/verification';
+import { Manageawsuser } from './auth/users/users';
+import { checkIdentity } from './auth/users/verification';
 
 
 export const awsuser = ({username }: any) => {

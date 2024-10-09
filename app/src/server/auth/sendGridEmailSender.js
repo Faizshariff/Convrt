@@ -1,6 +1,3 @@
-// src/server/email/sendGridEmailSender.js
-
-// Email sending function using Wasp's emailSender
 export const sendverifyEmail = async ({ to, subject, text, html }) => {
     try {
       const info = await emailSender.send({
