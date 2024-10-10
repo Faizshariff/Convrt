@@ -204,29 +204,106 @@ Convrt is a full-stack web application built with Wasp, designed and aimed towar
 
 
 ```
----
-
-# HLD of application
-
-![design2](https://github.com/user-attachments/assets/fb3263b3-4161-4eb5-a04d-0e763394a63c)
-
-
----
 
 # Module Explanations
 
-### `pages/api`
-- **indexapi.js**: Handles server-side data fetching. All API calls made from the application are defined here, ensuring centralized management of data interactions.
+### `MainApp client`
 
-### `pages/Components`
-- **Autocomplete.tsx**: Autocomplete component that manages the autocomplete functionality for the search bar.
-- **Details.tsx**: Subpage for each individual restaurent or attraction card
-- **Gmap.tsx**: Main component for integrating and displaying the MapBox map.
-- **List.tsx**: Manages the rendering of lists of places such as restaurants or attractions & weather based on user's location or search results.
-- **Search.tsx**: Search bar component that Implements the search functionality, handling user input
+# Project Documentation
 
-### `pages/_index.tsx`
-This is the main entry point of application or parent component 
+This document provides an overview of the modules and components within the application, covering the structure, key components, and their purposes.
+
+## 📂 `app/src/client/app`
+- **AccountPage.tsx**: Displays account-related information and settings for the logged-in user.
+- **CampaignPage.tsx**: Main page for managing marketing campaigns, providing an overview of active campaigns.
+- **CheckoutPage.tsx**: Handles the checkout process, including order summaries and payment forms.
+- **ContactsPage.tsx**: Manages and displays contact lists, including search and filtering options.
+- **Mailboard.tsx**: Displays email campaigns and provides insights into email performance.
+- **PricingPage.tsx**: Displays different pricing tiers and subscription options available for the users.
+
+## 📂 `app/src/client/auth`
+- **authWrapper.tsx**: Higher-order component that wraps authentication logic, ensuring that users are logged in before accessing certain pages.
+- **EmailVerification.tsx**: Handles email verification process for new users, typically after signup.
+- **LoginPage.tsx**: Login page for users to authenticate into the application.
+- **PasswordReset.tsx**: Page for users to reset their password by providing a new password.
+- **RequestPasswordReset.tsx**: Allows users to request a password reset link to be sent to their email.
+- **SignupPage.tsx**: Signup page where new users can create an account.
+
+## 📂 `app/src/client/components`
+This folder contains all reusable React components used throughout the application.
+
+### 📂 `app/src/client/components/CampaignPage`
+- **Campaigncard.tsx**: Displays a card view of individual campaigns with basic details.
+- **CreateCampaign.tsx**: Provides a form for creating new campaigns.
+- **Write.tsx**: Editor component for writing content related to a campaign.
+
+### 📂 `app/src/client/components/ContactPage`
+- **Banner.tsx**: Displays a banner at the top of the Contact page.
+- **ContactButton.tsx**: A button component used to trigger actions related to contacts (e.g., add new contact).
+- **NewTaskForm.tsx**: A form to create new tasks associated with a contact.
+- **Table.tsx**: Displays contacts in a table format with sortable columns.
+
+#### 📂 `app/src/client/components/ContactPage/Modals`
+- **AddModal.tsx**: Modal window for adding new contacts.
+- **FileUpload.tsx**: Component for uploading contact files.
+- **ScrapeModal.tsx**: Modal for scraping contact data from external sources.
+- **useLocationSearch.ts**: Hook for handling location-based searches within the contact page.
+
+### 📂 `app/src/client/components/MailboardPage`
+Contains components related to displaying and managing the mailboard and email statistics.
+
+### 📂 `app/src/client/components`
+- **AppNavBar.tsx**: Navigation bar used across the application.
+- **Button.tsx**: Reusable button component with configurable styles and behaviors.
+- **DropdownUser.tsx**: Dropdown menu used for user actions like logging out.
+- **select.tsx**: Custom select input component for forms.
+- **UserMenuItems.tsx**: Menu items displayed under the user dropdown.
+
+## 📂 `app/src/client/hooks`
+- **useColorMode.tsx**: Custom hook for managing light and dark modes.
+- **useLocalStorage.tsx**: Custom hook for interacting with local storage.
+- **useModal.tsx**: Custom hook for managing modal visibility and state.
+
+## 📂 `app/src/client/landing-page`
+- **contentSections.ts**: Content layout for different sections of the landing page.
+- **Customerlogo.tsx**: Displays customer logos on the landing page.
+- **Features.tsx**: Component that highlights key features of the application.
+- **Footer.tsx**: Footer component for the landing page.
+- **LandingPage.tsx**: Main component for the landing page.
+- **Testimonials.tsx**: Displays customer testimonials on the landing page.
+
+## 📂 `app/src/client/mails`
+- **default.tsx**: Default email template used for application emails.
+- **template.tsx**: Customizable email template used across different email types.
+- **images/**: Contains images used in the mail templates.
+
+## 📂 `app/src/client/static`
+This folder contains static assets such as images and illustrations used throughout the application:
+- **avatar-placeholder.png**: Placeholder image for user avatars.
+- **da-boi.png**: An image used in a specific context (e.g., branding).
+- **open-saas-banner.jpeg**: A banner image for marketing purposes.
+
+## 📂 `app/src/client/utils`
+- **Api.ts**: Utility functions for making API calls from the client.
+
+## 📂 `app/src/client`
+- **App.tsx**: Root component of the frontend application, responsible for rendering the main layout and routes.
+- **Main.css**: Main CSS file containing global styles for the application.
+
+---
+
+
+### `Dashboard client`
+
+### `app/src/client/admin/layout`
+- **DefaultLayout.tsx**: Reusable layout wrapper with sidebar.
+
+### `app/src/client/admin/pages`
+- **DashboardPage.tsx**: Default dahsboard page that dispays stripe and google analytic stats for the application.
+- **Users.tsx**: dashboard page to display the list of current application user.
+
+### `app/src/client/admin/components`
+This folder contains all the react child components used in the dashboard pages. 
 
 
 ## Key Fixes & Improvements
