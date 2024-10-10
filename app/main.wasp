@@ -303,30 +303,8 @@ page AdminMessagesPage {
   component: import AdminMessages from "@src/client/admin/pages/Messages"
 }
 
-route AdminFormElementsRoute { path: "/admin/forms/form-elements", to: AdminFormElementsPage }
-page AdminFormElementsPage {
-  authRequired: true,
-  component: import AdminForms from "@src/client/admin/pages/Form/FormElements"
-}
-
-route AdminFormLayoutsRoute { path: "/admin/forms/form-layouts", to: AdminFormLayoutsPage }
-page AdminFormLayoutsPage {
-  authRequired: true,
-  component: import AdminForms from "@src/client/admin/pages/Form/FormLayout"
-}
 
 
-route AdminUIAlertsRoute { path: "/admin/ui/alerts", to: AdminUIAlertsPage }
-page AdminUIAlertsPage {
-  authRequired: true,
-  component: import AdminUI from "@src/client/admin/pages/UiElements/Alerts"
-}
-
-route AdminUIButtonsRoute { path: "/admin/ui/buttons", to: AdminUIButtonsPage }
-page AdminUIButtonsPage {
-  authRequired: true,
-  component: import AdminUI from "@src/client/admin/pages/UiElements/Buttons"
-}
 
 /* ⛑ These are the Wasp Operations, which allow the client and server to interact:
  * https://wasp-lang.dev/docs/data-model/operations/overview

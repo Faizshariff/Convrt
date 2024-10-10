@@ -184,8 +184,8 @@ Convrt is a full-stack web application built with Wasp, designed and aimed towar
 │   │   │   │   ├── Settings.tsx               
 │   │   │   │   ├── Messages.tsx               
 │   │   │   │   ├── DashboardPage.tsx          
-│   │   │   │   ├── Chart.tsx                  
-│   │   │   │   └── UiElements/                # Admin UI components
+│   │   │   │   |__Chart.tsx                  
+│   │   │   │  
 │   │   │   ├── layout/                        # Admin layout components
 │   │   │   ├── images/                        
 │   │   │   ├── fonts/
