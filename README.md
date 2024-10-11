@@ -203,86 +203,83 @@ Convrt is a full-stack web application built with Wasp, designed and aimed towar
 
 
 
-```
-
 # Module Explanations
 
 ### 📂 `MainApp client`
 
-##  `app/src/client/app`
-- **AccountPage.tsx**:  Page to Display account-related information and settings for the logged-in user.
+## `app/src/client/app`
+- **AccountPage.tsx**: Page to display account-related information and settings for the logged-in user.
 - **CampaignPage.tsx**: Page for creating & managing campaigns, providing an overview of all campaigns.
 - **CheckoutPage.tsx**: Handles the checkout process and payment forms.
-- **ContactsPage.tsx**: Manages and displays contact lists, including scraping and csv uploading options.
-- **Mailboard.tsx**: Main Page that Displays email campaigns and provides analytics & insights into email performance.
+- **ContactsPage.tsx**: Manages and displays contact lists, including scraping and CSV uploading options.
+- **Mailboard.tsx**: Main page that displays email campaigns and provides analytics & insights into email performance.
 - **PricingPage.tsx**: Displays different pricing tiers and subscription options available for the users.
 
-##  `app/src/client/auth`
+## `app/src/client/auth`
 - **authWrapper.tsx**: Higher-order component that wraps authentication logic.
-- **EmailVerification.tsx**: Handles email verification process for new users, typically after signup.
+- **EmailVerification.tsx**: Handles the email verification process for new users, typically after signup.
 - **LoginPage.tsx**: Login page for users to authenticate into the application.
-- **PasswordReset.tsx**: Parent component for password reset 
-- **RequestPasswordReset.tsx**: Main Page that Contains Password Reset Component .
+- **PasswordReset.tsx**: Parent component for password reset.
+- **RequestPasswordReset.tsx**: Main page that contains the password reset component.
 - **SignupPage.tsx**: Signup page where new users can create an account.
 
 ## `app/src/client/components`
 This folder contains all reusable React components used throughout the application.
 
-###  `app/src/client/components/CampaignPage`
+### `app/src/client/components/CampaignPage`
 - **Campaigncard.tsx**: Displays a card view of individual campaigns with basic details.
-- **CreateCampaign.tsx**: Provides Modal for creating new campaigns & displays all campaigns.
-- **Write.tsx**: Email Editor Page to create & edit content for campaigns.
+- **CreateCampaign.tsx**: Provides a modal for creating new campaigns & displays all campaigns.
+- **Write.tsx**: Email editor page to create & edit content for campaigns.
 
-###  `app/src/client/components/ContactPage`
+### `app/src/client/components/ContactPage`
 - **Banner.tsx**: Reusable banner component displayed at the top of the Contact page.
-- **ContactButton.tsx**: Reusable Button Component
-- **NewTaskForm.tsx**: Main Component of the Contact page
-- **Table.tsx**: Table component to display the list of all contacts
+- **ContactButton.tsx**: Reusable button component.
+- **NewTaskForm.tsx**: Main component of the Contact page.
+- **Table.tsx**: Table component to display the list of all contacts.
 
 #### `app/src/client/components/ContactPage/Modals`
-- **AddModal.tsx**: Modal window for adding new contacts Manually.
-- **FileUpload.tsx**: Modal Component for uploading contact files through csv file.
-- **ScrapeModal.tsx**: Modal for scraping contact data from gmaps & other external sources.
+- **AddModal.tsx**: Modal window for adding new contacts manually.
+- **FileUpload.tsx**: Modal component for uploading contact files through CSV file.
+- **ScrapeModal.tsx**: Modal for scraping contact data from Google Maps & other external sources.
 
 ### `app/src/client/components/MailboardPage`
 - **Emailcharts.tsx**: A component that displays email campaign statistics and a pie chart visualization.
-- **Statcard.tsx**: A child component of EmailStatusChart that displays statistics
+- **Statcard.tsx**: A child component of `EmailStatusChart` that displays statistics.
 
-##  `app/src/client/hooks`
+## `app/src/client/hooks`
 - **useColorMode.tsx**: Custom hook for managing light and dark modes.
 - **useLocalStorage.tsx**: Custom hook used for caching.
-- **useModal.tsx**: Custom hook for managing modal functionality , visibility and state.
-- **useLocationSearch.ts**: Hook for handling location-autocomplete and gmaps business data searches.
+- **useModal.tsx**: Custom hook for managing modal functionality, visibility, and state.
+- **useLocationSearch.ts**: Hook for handling location autocomplete and Google Maps business data searches.
 
-##  `app/src/client/landing-page`
-- Contains Main landing page component and its child components
+## `app/src/client/landing-page`
+Contains main landing page component and its child components.
 
-##  `app/src/client/mails`
-- Contains email templates used in the application
-
+## `app/src/client/mails`
+Contains email templates used in the application.
 
 ## `app/src/client/utils`
 - **Api.ts**: Utility function for making API calls from the client.
 
-##  `app/src/client`
+## `app/src/client`
 - **App.tsx**: Root component of the frontend application, responsible for rendering the main layout.
 - **Main.css**: Main CSS file containing global styles for the application.
 
-
+---
 
 ### 📂 `Dashboard client`
 
 ### `app/src/client/admin/layout`
-- **DefaultLayout.tsx**: Reusable layout wrapper with sidebar.
+- **DefaultLayout.tsx**: Reusable layout wrapper with a sidebar.
 
 ### `app/src/client/admin/pages`
-- **DashboardPage.tsx**: Default dahsboard page that dispays stripe and google analytic stats for the application.
-- **Users.tsx**: dashboard page to display the list of current application user.
+- **DashboardPage.tsx**: Default dashboard page that displays Stripe and Google Analytics stats for the application.
+- **Users.tsx**: Dashboard page to display the list of current application users.
 
 ### `app/src/client/admin/components`
-This folder contains all the react child components used in the dashboard pages. 
+This folder contains all the React child components used in the dashboard pages.
 
-
+---
 
 ### 📂 `Backend server`
 
@@ -292,20 +289,18 @@ This folder contains all the react child components used in the dashboard pages.
 ### `app/src/server/queries.ts`
 - **queries.ts**: Contains database query functions for retrieving data from the backend.
 
-### `app/src/server/actions.ts`
-- **actions.ts**: This file handles various server-side operations for payments, task management, campaigns, and user updates.
+### `app/src/server/actions.ts**
+- **actions.ts**: Handles various server-side operations for payments, task management, campaigns, and user updates.
 
 ### `app/src/server/workers`
 This folder contains background worker scripts that perform asynchronous tasks.
 
-
 ### `app/src/server/webhooks`
-
 - **stripe.ts**: Handles Stripe webhook events to keep the application in sync with Stripe.
-- **emailsns.ts**: Processes and updates email-related events from campaign such as open, delivery or bounce .
+- **emailsns.ts**: Processes and updates email-related events from campaigns such as opens, deliveries, or bounces.
 
 ### `app/src/server/sendmail`
-- **sesUtils.ts**: Main Utility function for sending emails via sendgrid.
+- **sesUtils.ts**: Main utility function for sending emails via AWS SES.
 
 ### `app/src/server/scripts`
 - **usersSeed.ts**: Script for seeding the database with initial user data for development or testing purposes.
@@ -315,12 +310,10 @@ This folder contains background worker scripts that perform asynchronous tasks.
 
 ### `app/src/server/auth`
 - **setUsername.ts**: Handles the logic for setting or updating a user’s username.
-- **sendGridEmailSender.js**: function for sending verification email when a use signs up.
-- **email.ts**: Handles Conent for email operations like sending verification emails & password reset links.
-- **users/verification.ts**: Verifies and updates the sender identitity status of a user
-- **users/users.ts**: creates sender identity for user when they sign up. 
-
----
+- **sendGridEmailSender.js**: Function for sending verification emails when a user signs up.
+- **email.ts**: Handles content for email operations like sending verification emails & password reset links.
+- **users/verification.ts**: Verifies and updates the sender identity status of a user.
+- **users/users.ts**: Creates sender identity for users when they sign up.
 
 
 
