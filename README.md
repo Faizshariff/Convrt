@@ -9,7 +9,7 @@ Congratulations youre one!
 
 # CONVRT
 
-Convrt is a full-stack web application built with Wasp, designed and aimed towards agency owners who target local business owners , its built to streamline lead generation and email marketing campaigns. With a robust scraping feature, users can target specific locations and business types to collect leads efficiently. and manage them with ease
+Convrt is a full-stack web application built with the Wasp framework, designed for agency owners focused on serving local businesses. It streamlines the process of lead generation and email marketing campaigns, providing robust tools for scraping, lead management, and campaign orchestration.
 
 - 🌍 **Geolocation & Business type based lead scraping**
 - 📝 **lead management system**
@@ -57,8 +57,27 @@ Convrt is a full-stack web application built with Wasp, designed and aimed towar
   - **Docker**: Containerization for consistent application deployment across different environments.
 
 
+## General Project Structure
 
-## 📁 Project Structure
+```
+
+Convrt/
+├── blog/                         # Blog feature folder for content and documentation
+├── app/                          # Main application folder
+│   ├── src/                      # Contains source code for both frontend and backend
+│   │   ├── client/               # Frontend components and pages (React)
+│   │   ├── server/               # Backend logic (queries, actions, workers)
+│   │   ├── shared/               # Shared utilities and types
+├── docker                       # Docker configuration for deployment
+├── .vscode/                      # VSCode configuration
+
+
+```
+
+
+
+
+## 📁  Detailed Project Structure
 
 ```
 
@@ -316,6 +335,13 @@ This folder contains background worker scripts that perform asynchronous tasks.
 - **email.ts**: Handles content for email operations like sending verification emails & password reset links.
 - **users/verification.ts**: Verifies and updates the sender identity status of a user.
 - **users/users.ts**: Creates sender identity for users when they sign up.
+
+
+
+## Database Schema and Functionality Overview
+
+### Architecture
+
 
 
 
