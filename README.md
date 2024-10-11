@@ -287,51 +287,38 @@ This folder contains all the react child components used in the dashboard pages.
 ### 📂 `Backend server`
 
 ### `app/src/server`
-- **serverSetup.ts**: Initializes and configures the server, setting up middleware, routes, and any other server-level dependencies.
+- **serverSetup.ts**: Configures CORS settings and handles global server middleware setup.
 
 ### `app/src/server/queries.ts`
-- **queries.ts**: Contains database query functions for retrieving data from the backend, such as fetching user or application data.
+- **queries.ts**: Contains database query functions for retrieving data from the backend.
 
 ### `app/src/server/actions.ts`
-- **actions.ts**: Defines server-side actions that modify or interact with the database, such as creating, updating, or deleting records.
+- **actions.ts**: This file handles various server-side operations for payments, task management, campaigns, and user updates.
 
 ### `app/src/server/workers`
 This folder contains background worker scripts that perform asynchronous tasks.
 
-- **plausibleAnalyticsUtils.ts**: Worker script that handles interactions with Plausible Analytics for gathering and processing analytics data.
-- **googleAnalyticsUtils.ts**: Worker script that integrates with Google Analytics to fetch and manage analytics data.
-- **checkAndQueueEmails.ts**: Worker that checks and queues emails for sending based on the application’s business logic.
-- **calculateDailyStats.ts**: Worker script that calculates daily statistics (such as user activity, email status) and updates relevant records.
 
 ### `app/src/server/webhooks`
-This folder contains webhook handlers for processing incoming events from external services.
 
-- **stripe.ts**: Handles Stripe webhook events (e.g., payments, subscriptions) to keep the application in sync with Stripe.
-- **emailsns.ts**: Processes email-related events from AWS SNS (Simple Notification Service), such as delivery or bounce notifications.
+- **stripe.ts**: Handles Stripe webhook events to keep the application in sync with Stripe.
+- **emailsns.ts**: Processes and updates email-related events from campaign such as open, delivery or bounce .
 
 ### `app/src/server/sendmail`
-This folder contains utilities for sending emails via different services.
-
-- **sesUtils.ts**: Utility for sending emails via AWS SES (Simple Email Service), handling the setup and execution of email delivery.
+- **sesUtils.ts**: Main Utility function for sending emails via sendgrid.
 
 ### `app/src/server/scripts`
-This folder contains various utility scripts for running tasks on the server.
-
 - **usersSeed.ts**: Script for seeding the database with initial user data for development or testing purposes.
 
 ### `app/src/server/payments`
-This folder handles payment-related functionalities.
-
 - **stripeUtils.ts**: Contains utility functions for interacting with Stripe’s API, such as processing payments, refunds, and managing subscriptions.
 
 ### `app/src/server/auth`
-This folder manages user authentication and related functionalities.
-
 - **setUsername.ts**: Handles the logic for setting or updating a user’s username.
-- **sendGridEmailSender.js**: Utility for sending emails via SendGrid, including setup and email-sending logic.
-- **email.ts**: Handles email-related operations like sending verification emails or password reset links.
-- **users/verification.ts**: Manages user verification processes, such as verifying email addresses.
-- **users/users.ts**: Handles user-related actions, such as retrieving, updating, or deleting user data.
+- **sendGridEmailSender.js**: function for sending verification email when a use signs up.
+- **email.ts**: Handles Conent for email operations like sending verification emails & password reset links.
+- **users/verification.ts**: Verifies and updates the sender identitity status of a user
+- **users/users.ts**: creates sender identity for user when they sign up. 
 
 ---
 
