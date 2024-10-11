@@ -63,14 +63,14 @@ Convrt is a full-stack web application built with the Wasp framework, designed f
 
 ```
 
-Convrt/
+Convrt/src/
 ├── blog/                         # Blog feature folder for content and documentation
 ├── app/                          # Main application folder
 │   ├── src/                      # Contains source code for both frontend and backend
 │   │   ├── client/               # Frontend components and pages (React)
 │   │   ├── server/               # Backend logic (queries, actions, workers)
 │   │   ├── shared/               # Shared utilities and types
-├── docker                       # Docker configuration for deployment
+├── Dockerfile                       # Docker configuration for deployment
 ├── .vscode/                      # VSCode configuration
 
 
