@@ -342,8 +342,139 @@ This folder contains background worker scripts that perform asynchronous tasks.
 
 ## Database Schema and Functionality Overview
 
-### Architecture
 
+
+
+
+
+### Documentation: Campaign Creation and Email Sending WebApp
+
+This document outlines the process of creating a campaign and sending emails within a web application built using React, Wasp, and SendGrid. It covers the main components involved and provides explanations of the flow along with key code snippets.
+
+---
+
+### 1. **Campaign Creation (`CreateCampaignPage.tsx`)**
+
+This component provides a UI for users to create email campaigns by specifying details like the campaign name, subject, recipient list, and template. It also supports scheduling emails.
+
+#### Key Functionalities:
+- **User Verification**: Checks if the user's email is verified before allowing campaign creation.
+  ```tsx
+  useEffect(() => {
+      if (user.sendEmail) setVerified(true);
+      handleMailExtractClick();
+  }, [user]);
+  ```
+  
+- **Form Inputs**: Users input the campaign name, subject, contact list, and choose a template.
+  ```tsx
+  <NoBorderTextField label="Name" value={nameData} onChange={(e) => setNameData(e.target.value)} />
+  <FormControl><Select value={contact} onChange={(e) => setContact(e.target.value)}>{/* Options */}</Select></FormControl>
+  ```
+
+- **Campaign Submission**: Passes the input data as query parameters to the email composition page (`Write.tsx`).
+  ```tsx
+  const handleCampaign = () => {
+      if (!nameData || !subjectData || !contact) {
+          alert("Please fill in all required fields.");
+          return;
+      }
+      const dataToPass = { name: nameData, subject: subjectData, list: contact, template, schedule: schedule ? time.toISOString() : '' };
+      const queryParams = new URLSearchParams(dataToPass).toString();
+      history.push(`/write?${queryParams}`);
+  };
+  ```
+
+---
+
+### 2. **Email Composition (`Write.tsx`)**
+
+This component manages the email composition, allowing users to edit the content using predefined templates or create a new email. Merge tags are dynamically generated based on the selected task list for personalizing emails.
+
+#### Key Functionalities:
+- **Email Editor**: Uses `react-email-editor` to provide a rich text editor for composing emails.
+  ```tsx
+  <EmailEditor ref={emailEditorRef} minHeight={"90vh"} onLoad={onLoad} onReady={onReady} />
+  ```
+
+- **Dynamic Merge Tags**: Merge tags (e.g., name, email) are generated from task data to personalize the email content.
+  ```tsx
+  const dynamicMergeTags = tasks && key1 ? Object.keys(tasks[0]).reduce((acc, key) => {
+      acc[key] = { name: key.charAt(0).toUpperCase() + key.slice(1), value: `{{${key}}}` };
+      return acc;
+  }, {}) : {};
+  ```
+
+- **Campaign Submission**: Finalizes the email content and submits it to the backend for processing.
+  ```tsx
+  const handleCampaign = async () => {
+      const html = await exportHtml();
+      const filteredTasks = tasks.filter(task => task.Tag === key1);
+      const to = filteredTasks.map(task => task.email);
+      await createCampaign({ name: key4, to, from: user.username, subject: key5, body: html, tag: 'mail-tool', schedule });
+      history.push('/campaign');
+  };
+  ```
+
+---
+
+### 3. **Backend Logic (`Main.wasp` and `Action.tsx`)**
+
+The backend logic for creating a campaign and sending emails is handled via Wasp actions. The `createCampaign` action stores the campaign details and triggers the email-sending function.
+
+#### Key Functionalities:
+- **Campaign Storage**: The campaign data is stored in the database, linking it to the user and saving email metadata.
+  ```tsx
+  const campaign = await context.entities.Campaign.create({
+      data: {
+          name,
+          Totalmail: to.length,
+          emails: { create: emailData },
+          user: { connect: { id: context.user.id } }
+      },
+  });
+  ```
+
+- **Email Sending**: Emails are sent using the `sendEmail` function, which interacts with the SendGrid API. It supports scheduling and dynamic content with merge tags.
+  ```tsx
+  sendEmail({ to, from, subject, body, tag, schedule, emailIDs, mergeTags, context });
+  ```
+
+---
+
+### 4. **Email Sending Utility (`sesUtils.tsx`)**
+
+The `sendEmail` function uses SendGrid to send emails in batches to ensure efficient processing. The function handles personalizing each email and managing batch sending.
+
+#### Key Features:
+- **Batch Processing**: Recipients are divided into batches of 1000 for sending emails.
+  ```tsx
+  const batches = chunkArray(to, 1000);
+  const idBatches = chunkArray(emailIDs, 1000);
+  const batchPromises = batches.map((batch, batchIndex) => queue.add(async () => {
+      const personalizations = batch.map((email, index) => {
+          return { to: email, custom_args: { unique_arg: idBatches[batchIndex][index] }, substitutions: { email: task.email, name: task.name } };
+      });
+      await sgMail.sendMultiple(msg);
+  }));
+  ```
+
+- **Merge Tags**: Personalizes each email using merge tags based on user task data.
+  ```tsx
+  const personalizations = batch.map((email, index) => {
+      const task = tasks.find(task => task.email === email);
+      return {
+          to: email,
+          substitutions: { email: task.email, name: task.name, description: task.description }
+      };
+  });
+  ```
+
+---
+
+### Conclusion
+
+This document covers the key components and flow of creating and sending email campaigns. The web app integrates a frontend for campaign management and email composition with backend logic for handling email scheduling and delivery via SendGrid.
 
 
 
