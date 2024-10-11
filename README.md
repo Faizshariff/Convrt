@@ -24,7 +24,7 @@ Convrt is a full-stack web application built with the Wasp framework, designed f
 
 # Tech Stack:
 
- Convrt follows a monolithic architecture where both the frontend and backend are integrated into a single codebase. It adheres to the separation of concerns principle, ensuring clear distinctions between the frontend, backend, and database layers. The framework adopts a declarative, convention-over-configuration approach, allowing developers to focus on high-level application logic by reducing the need for manual setup and configuration.
+ Convrt follows a monolithic architecture where both the frontend and backend are integrated into a single codebase. It adopts a declarative, convention-over-configuration approach, allowing developers to focus on high-level application logic by reducing the need for manual setup and configuration.
 
 - **Frontend & Backend**: Wasp full-stack framework with React (Frontend), Node.js (Backend) 
 - **Database**: Prisma ORM with PostgreSQL (Wasp)
