@@ -519,36 +519,94 @@ This file handles API calls to external services such as LocationIQ (for locatio
 
 ## Key Fixes & Improvements
 
-### ⭐ Debouncing API Calls in Search
-To optimize the search functionality and prevent exceeding the API request limits, I implemented **debouncing** in the `Search.tsx` component. Previously, continuous API calls were made as the user typed in the search bar, resulting in 429 errors (api call rate limit exceeded). With debouncing, the API call is now delayed by 500ms, ensuring more efficient handling of user input and reducing excessive API requests.
+Here’s a more concise version of your **Key Fixes & Improvements** section with essential code snippets:
 
-### ⭐ Custom Directions Rendering in Mapbox
-During the time of developement of this project Mapbox didnt come with native directions feature. To resolve this, I utilized the **Location IQ API** to fetch route data and then manually map the directions on the map using Mapbox's **Layer** functionality. The start and end locations are passed to the API, and the response is used to draw the route on the map, providing a seamless directions experience.
+---
 
+## Key Fixes & Improvements
+
+### ⭐ CORS Error Fix for Fullstack Application
+I encountered a **CORS policy error** while connecting the frontend and backend in production. The issue was due to missing `Access-Control-Allow-Origin` headers. 
+
+To resolve this, I installed the **CORS package with its types** and configured the backend to accept requests from the client URL:
+
+```ts
+middlewareConfig.set(
+  'cors',
+  cors({
+    origin: ['your client url'],
+    credentials: true,
+  })
+);
+```
+
+This setup allowed proper communication between the client and server, solving the CORS issue.
+
+---
+
+### ⭐ Bulk Email Sending Rate Limit Fix for SendGrid
+When sending large batches of emails, I ran into a `HTTP/1.1 429 TOO MANY REQUESTS` error due to SendGrid’s rate limits. To fix this, I used **PQueue** for concurrency control and split recipients into manageable **batches**:
+
+```ts
+const queue = new PQueue({ concurrency: 5 });
+const batches = chunkArray(to, 1000); // Split recipients
+
+const batchPromises = batches.map(batch => 
+  queue.add(async () => {
+    await sgMail.sendMultiple({ personalizations: batch, ... });
+  })
+);
+```
+
+This solution ensured smooth processing of bulk emails without exceeding API limits.
+
+---
+
+This shorter version still explains the problem and the crucial fixes while focusing on the key code snippets.
 
 
 ### <h1>Installation</h1>
 
-1. Clone the repository or Download the code and open Travelhub Folder with any code editor
+
+1. Clone the repository or download the code and open the **Convrt** folder with any code editor:
    ```sh
-   git clone https://github.com/Faizshariff/Travel-hub.git
+   git clone https://github.com/Faizshariff/Convrt.git
+   ```
+   Or fork the repo and open GitHub Codespaces.
+
+2. Ensure you have Node.js (and NPM) installed on your machine and available in your PATH to use Wasp. Your version of Node.js must be >= 18. Then, install curl on your system using the following command:
+   ```sh
+   curl -sSL https://get.wasp-lang.dev/installer.sh | sh -s -- -v 0.13.2
    ```
 
-2. Install dependencies
+3. Set up environment variables. Add the following variables in your `.env.local` file (if it doesn't exist) in the root directory:
+   ```
+   REACT_APP_API_URL=waspserverurl
+   REACT_APP_LOCATIONIQ_API_KEY=locationiq_api_key
+   REACT_APP_MAPSDATA_API_KEY=localbusinessData_rapid_api_key
+   SENDGRID_ACCESS_KEY=apikey
+   SENDGRID_API_KEY=apikey
+   SENDGRID_WEBHOOK_PK=webhook_signature
+   SKIP_EMAIL_VERIFICATION_IN_DEV=true
+   WASP_SERVER_URL=waspserver_url
+   ```
+
+4. Open a new terminal, navigate into the app directory, and run:
    ```sh
    npm install
    ```
 
-3. Set up environment variables
-   Create a `.env.local` file if it doesnt exist in the root directory and add:
-   ```
-   NEXT_PUBLIC_REACT_APP_MAPBOX_API_KEY_SECURE=your_mapbox_token
-   NEXT_PUBLIC_REACT_APP_RAPIDAPI_API_KEY_SECURE=your_traveladvisor_rapidapi_key
-   NEXT_PUBLIC_REACT_APP_LOCATIONIQ_API_KEY_SECURE=your_locationiq_token
-   NEXT_PUBLIC_REACT_APP_WEATHER_API_KEY=your_weather-api.com_key
-   ```
-
-4. Start the development server
+5. Start the database with the following command:
    ```sh
-   npm run dev
+   wasp start db
    ```
+   Be patient until it starts the database, which will be forwarded into a new port. 
+
+6. Now, open a new terminal, navigate to the app directory, and run:
+   ```sh
+   wasp start
+   ```
+   Your Wasp application should now be running correctly.
+```
+
+

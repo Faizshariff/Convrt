@@ -5,7 +5,6 @@ import { getAllTasksByUser } from '../queries';
 
 const sendgridApiKey = process.env.SENDGRID_ACCESS_KEY;
 
-console.log("dddisssssssss",process.env.SENDGRID_ACCESS_KEY)
 
 if (!sendgridApiKey) {
   throw new Error('SendGrid API key is not defined in environment variables');
