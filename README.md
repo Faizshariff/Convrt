@@ -183,8 +183,10 @@ Convrt/
 │   │   │   │   └── Customerlogo.tsx           
 │   │   │   ├── hooks/                         # Custom React hooks
 │   │   │   │   ├── useModal.tsx               
-│   │   │   │   ├── useLocalStorage.tsx       
-│   │   │   │   └── useColorMode.tsx           
+│   │   │   │   ├── useSessionStorageMap.tsx       
+│   │   │   │   ├── useColorMode.tsx 
+|   |   |   |   ├── useLocationSearch.ts
+|   |   |   |   |
 │   │   │   ├── components/                    # Reusable components
 │   │   │   │   ├── DropdownUser.tsx           
 │   │   │   │   ├── AppNavBar.tsx              
@@ -271,7 +273,7 @@ Convrt/
 
 ## `app/src/client/hooks`
 - **useColorMode.tsx**: Custom hook for managing light and dark modes.
-- **useLocalStorage.tsx**: Custom hook used for caching.
+- **useSessionStorageMap.tsx**: Custom hook used for caching.
 - **useModal.tsx**: Custom hook for managing modal functionality, visibility, and state.
 - **useLocationSearch.ts**: Hook for handling location autocomplete and Google Maps business data searches.
 
@@ -346,18 +348,11 @@ This folder contains background worker scripts that perform asynchronous tasks.
 
 ### Documentation: Modal-Based Data Input and API Fetch for Database Insertion
 
----
-
-### Key Components:
-1. **CampaignPage.tsx**: Hosts the `CreateCampaignPage` component which contains the UI for the campaign.
-2. **NewTaskForm.tsx**: Provides buttons to open modals and manage different data input methods.
-3. **ScrapeModal.tsx**: Gathers user input, fetches data from an external API, and saves it into the database.
-4. **API.ts**: Handles API calls for fetching location and business data.
-5. **useLocationSearch.ts**: A custom hook for location search and caching results.
-
----
 
 ### 1. **Page Setup (`CampaignPage.tsx`)**
+
+
+### `app/src/client/app/CampaignPage.tsx`
 
 The `CampaignPage` acts as a container for campaign-related components and UI. It renders the `CreateCampaignPage`, which includes the buttons for opening modals for adding, uploading, and scraping data.
 
@@ -374,6 +369,9 @@ export default function CampaignPage({ user }: { user: User }) {
 ---
 
 ### 2. **Modal Management (`NewTaskForm.tsx`)**
+
+
+### `app/src/client/components/ContactPage/NewTaskForm.tsx`
 
 The `NewTaskForm` component displays buttons for adding, uploading, and scraping data. Each button opens a corresponding modal.
 
@@ -393,6 +391,8 @@ The `NewTaskForm` component displays buttons for adding, uploading, and scraping
 ---
 
 ### 3. **Scraping Data Modal (`ScrapeModal.tsx`)**
+
+### `app/src/client/components/ContactPage/Modals/ScrapeModal.tsx`
 
 The `ScrapeModal` allows users to search for a location and scrape business data from an external API. The fetched data is then validated and inserted into the database.
 
@@ -431,7 +431,66 @@ const handleGetPlaces = async () => {
 
 ---
 
-### 4. **API Integration (`Api.ts`)**
+### 4. **Location Search Hook (`useLocationSearch.ts`)**
+
+### `app/src/client/hooks/useLocationSearch.ts`
+
+The `useLocationSearch` custom hook manages location autocomplete suggestions and caching results for efficiency.
+
+#### Key Features:
+- **Debounced Fetch**: Limits API requests by debouncing the input.
+- **Caching**: Stores previous location queries in session storage to reduce repeated API calls using custom hook
+
+```ts
+  const [cachedLocations, setCachedLocations] = useSessionStorageMap<{ [key: string]: any[] }>(
+      'locationSuggestions',
+      {}
+    );
+```
+
+   ```ts
+   const debouncedFetch = useMemo(() => debounce(fetchLocations, debounceDelay), [fetchLocations]);
+   ```
+
+---
+
+
+### 6. **In-Memory Caching (`useSessionStorageMap.tsx`)**
+
+### `app/src/client/hooks/useSessionStorageMap.tsx`
+
+The `useSessionStorageMap` hook manages cached values in memory for session-based operations. This enhances performance by reducing the need to re-fetch data during a single session.
+
+#### Key Features:
+1. **In-Memory Cache**: Stores frequently requested data in memory, preventing unnecessary API calls.
+   ```ts
+   const inMemoryCache = new Map<string, any>();
+   ```
+
+2. **Session Storage Hook**: Manages retrieval and storage of cached data within the session.
+   ```ts
+   const setValue = useCallback(
+       (value: SetValue<T>) => {
+           const valueToStore = value instanceof Function ? value(storedValue) : value;
+           setStoredValue(valueToStore);
+           inMemoryCache.set(key, valueToStore); // Update the in-memory cache
+       },
+       [key, storedValue]
+   );
+   ```
+
+3. **Usage in Location Search**: The `useLocationSearch` hook utilizes `useSessionStorageMap` to cache location suggestions.
+   ```ts
+   const [cachedLocations, setCachedLocations] = useSessionStorageMap<{ [key: string]: any[] }>('locationSuggestions', {});
+   ```
+
+---
+
+
+
+### 7. **API Integration (`Api.ts`)**
+
+### `app/src/client/utils/Api.ts`
 
 This file handles API calls to external services such as LocationIQ (for location suggestions) and RapidAPI (for business data).
 
@@ -450,19 +509,6 @@ This file handles API calls to external services such as LocationIQ (for locatio
        const response = await axios.get('https://local-business-data.p.rapidapi.com/search-in-area', {...});
        return response.data.data;
    };
-   ```
-
----
-
-### 5. **Location Search Hook (`useLocationSearch.ts`)**
-
-The `useLocationSearch` custom hook manages location autocomplete suggestions and caching results for efficiency.
-
-#### Key Features:
-- **Debounced Fetch**: Limits API requests by debouncing the input.
-- **Caching**: Stores previous location queries in session storage to reduce repeated API calls.
-   ```ts
-   const debouncedFetch = useMemo(() => debounce(fetchLocations, debounceDelay), [fetchLocations]);
    ```
 
 ---
