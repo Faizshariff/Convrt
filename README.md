@@ -349,21 +349,21 @@ This folder contains background worker scripts that perform asynchronous tasks.
 ### Documentation: Modal-Based Data Input and API Fetch for Database Insertion
 
 
-### 1. **Page Setup (`CampaignPage.tsx`)**
+### 1. **Page Setup (`ContactsPage.tsx`)**
 
 
-### `app/src/client/app/CampaignPage.tsx`
+### `app/src/client/app/ContactsPage.tsx`
 
-The `CampaignPage` acts as a container for campaign-related components and UI. It renders the `CreateCampaignPage`, which includes the buttons for opening modals for adding, uploading, and scraping data.
+The `ContactsPage` acts as a container for contactpage-related components and UI. If the user is verified it displays the NewTaskForm component else displays the edge case handling message.
 
 ```tsx
-export default function CampaignPage({ user }: { user: User }) {
-    return (
-        <div className='p-6 lg:mt-10 px-4 lg:px-8'>
-            <CreateCampaignPage user={user} />
-        </div>
-    );
-}
+    <div className='w-11/12'>
+        {verified ? (
+          <NewTaskForm  />
+        ) : (
+          <h1>Verify your email first then reload the page</h1>
+        )}
+      </div>
 ```
 
 ---
