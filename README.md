@@ -202,6 +202,8 @@ Convrt is a full-stack web application built with Wasp, designed and aimed towar
     └── settings.json
 
 
+```
+
 
 # Module Explanations
 
@@ -314,6 +316,7 @@ This folder contains background worker scripts that perform asynchronous tasks.
 - **email.ts**: Handles content for email operations like sending verification emails & password reset links.
 - **users/verification.ts**: Verifies and updates the sender identity status of a user.
 - **users/users.ts**: Creates sender identity for users when they sign up.
+
 
 
 
