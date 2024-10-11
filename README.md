@@ -348,12 +348,11 @@ This folder contains background worker scripts that perform asynchronous tasks.
 
 
 ### Documentation: Campaign Creation and Email Sending WebApp
-
-This document outlines the process of creating a campaign and sending emails within a web application built using React, Wasp, and SendGrid. It covers the main components involved and provides explanations of the flow along with key code snippets.
-
 ---
 
 ### 1. **Campaign Creation (`CreateCampaignPage.tsx`)**
+
+## `app/src/client/components/CampaignPage/CreateCampaign.tsx`
 
 This component provides a UI for users to create email campaigns by specifying details like the campaign name, subject, recipient list, and template. It also supports scheduling emails.
 
@@ -368,8 +367,11 @@ This component provides a UI for users to create email campaigns by specifying d
   
 - **Form Inputs**: Users input the campaign name, subject, contact list, and choose a template.
   ```tsx
-  <NoBorderTextField label="Name" value={nameData} onChange={(e) => setNameData(e.target.value)} />
-  <FormControl><Select value={contact} onChange={(e) => setContact(e.target.value)}>{/* Options */}</Select></FormControl>
+  <FormControl>
+     <Select value={contact} onChange={(e) => setContact(e.target.value as string)}>
+  {sortedUniqueTags.map((tag: any) => ( <MenuItem key={tag} value={tag}>  {tag} </MenuItem> ))}
+   </Select>
+  </FormControl>
   ```
 
 - **Campaign Submission**: Passes the input data as query parameters to the email composition page (`Write.tsx`).
@@ -388,6 +390,8 @@ This component provides a UI for users to create email campaigns by specifying d
 ---
 
 ### 2. **Email Composition (`Write.tsx`)**
+
+## `app/src/client/components/CampaignPage/Write.tsx`
 
 This component manages the email composition, allowing users to edit the content using predefined templates or create a new email. Merge tags are dynamically generated based on the selected task list for personalizing emails.
 
@@ -420,6 +424,8 @@ This component manages the email composition, allowing users to edit the content
 
 ### 3. **Backend Logic (`Main.wasp` and `Action.tsx`)**
 
+## `app/src/server/actions.ts`
+
 The backend logic for creating a campaign and sending emails is handled via Wasp actions. The `createCampaign` action stores the campaign details and triggers the email-sending function.
 
 #### Key Functionalities:
@@ -443,6 +449,8 @@ The backend logic for creating a campaign and sending emails is handled via Wasp
 ---
 
 ### 4. **Email Sending Utility (`sesUtils.tsx`)**
+
+## `app/src/server/sendmail/sesUtils.ts`
 
 The `sendEmail` function uses SendGrid to send emails in batches to ensure efficient processing. The function handles personalizing each email and managing batch sending.
 
@@ -472,9 +480,6 @@ The `sendEmail` function uses SendGrid to send emails in batches to ensure effic
 
 ---
 
-### Conclusion
-
-This document covers the key components and flow of creating and sending email campaigns. The web app integrates a frontend for campaign management and email composition with backend logic for handling email scheduling and delivery via SendGrid.
 
 
 
