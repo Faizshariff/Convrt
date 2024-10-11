@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal, Box, TextField } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import { Button as NextUIButton } from '@nextui-org/react';
-import { useLocationSearch, useBusinessSearch } from './useLocationSearch';
+import { useLocationSearch, useBusinessSearch } from '../../../hooks/useLocationSearch';
 import { createTask } from 'wasp/client/operations'; // Import the createTask function to insert data into the database
 
 interface AddTaskModalProps {

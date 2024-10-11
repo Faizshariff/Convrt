@@ -285,23 +285,10 @@ page AdminUsersPage {
   component: import AdminUsers from "@src/client/admin/pages/Users"
 }
 
-route AdminSettingsRoute { path: "/admin/settings", to: AdminSettingsPage }
-page AdminSettingsPage {
-  authRequired: true,
-  component: import AdminSettings from "@src/client/admin/pages/Settings"
-}
 
-route AdminChartsRoute { path: "/admin/chart", to: AdminChartsPage }
-page AdminChartsPage {
-  authRequired: true,
-  component: import AdminCharts from "@src/client/admin/pages/Chart"
-}
 
-route AdminMessagesRoute { path: "/admin/messages", to: AdminMessagesPage }
-page AdminMessagesPage {
-  authRequired: true,
-  component: import AdminMessages from "@src/client/admin/pages/Messages"
-}
+
+
 
 
 

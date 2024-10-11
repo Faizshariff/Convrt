@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect, useMemo } from 'react';
 import debounce from 'lodash/debounce';
-import { fetchLocationSuggestions,  fetchBusinessData } from '../../../utils/Api';
-import useSessionStorageMap from '../../../hooks/useLocalStorage' 
+import { fetchLocationSuggestions,  fetchBusinessData } from '../utils/Api';
+import useSessionStorageMap from './useLocalStorage' 
 
 export const useLocationSearch = (debounceDelay = 500) => {
     const [locationOptions, setLocationOptions] = useState<any[]>([]);

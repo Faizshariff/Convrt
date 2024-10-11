@@ -207,93 +207,70 @@ Convrt is a full-stack web application built with Wasp, designed and aimed towar
 
 # Module Explanations
 
-### `MainApp client`
+### 📂 `MainApp client`
 
-# Project Documentation
-
-This document provides an overview of the modules and components within the application, covering the structure, key components, and their purposes.
-
-## 📂 `app/src/client/app`
-- **AccountPage.tsx**: Displays account-related information and settings for the logged-in user.
-- **CampaignPage.tsx**: Main page for managing marketing campaigns, providing an overview of active campaigns.
-- **CheckoutPage.tsx**: Handles the checkout process, including order summaries and payment forms.
-- **ContactsPage.tsx**: Manages and displays contact lists, including search and filtering options.
-- **Mailboard.tsx**: Displays email campaigns and provides insights into email performance.
+##  `app/src/client/app`
+- **AccountPage.tsx**:  Page to Display account-related information and settings for the logged-in user.
+- **CampaignPage.tsx**: Page for creating & managing campaigns, providing an overview of all campaigns.
+- **CheckoutPage.tsx**: Handles the checkout process and payment forms.
+- **ContactsPage.tsx**: Manages and displays contact lists, including scraping and csv uploading options.
+- **Mailboard.tsx**: Main Page that Displays email campaigns and provides analytics & insights into email performance.
 - **PricingPage.tsx**: Displays different pricing tiers and subscription options available for the users.
 
-## 📂 `app/src/client/auth`
-- **authWrapper.tsx**: Higher-order component that wraps authentication logic, ensuring that users are logged in before accessing certain pages.
+##  `app/src/client/auth`
+- **authWrapper.tsx**: Higher-order component that wraps authentication logic.
 - **EmailVerification.tsx**: Handles email verification process for new users, typically after signup.
 - **LoginPage.tsx**: Login page for users to authenticate into the application.
-- **PasswordReset.tsx**: Page for users to reset their password by providing a new password.
-- **RequestPasswordReset.tsx**: Allows users to request a password reset link to be sent to their email.
+- **PasswordReset.tsx**: Parent component for password reset 
+- **RequestPasswordReset.tsx**: Main Page that Contains Password Reset Component .
 - **SignupPage.tsx**: Signup page where new users can create an account.
 
-## 📂 `app/src/client/components`
+## `app/src/client/components`
 This folder contains all reusable React components used throughout the application.
 
-### 📂 `app/src/client/components/CampaignPage`
+###  `app/src/client/components/CampaignPage`
 - **Campaigncard.tsx**: Displays a card view of individual campaigns with basic details.
-- **CreateCampaign.tsx**: Provides a form for creating new campaigns.
-- **Write.tsx**: Editor component for writing content related to a campaign.
+- **CreateCampaign.tsx**: Provides Modal for creating new campaigns & displays all campaigns.
+- **Write.tsx**: Email Editor Page to create & edit content for campaigns.
 
-### 📂 `app/src/client/components/ContactPage`
-- **Banner.tsx**: Displays a banner at the top of the Contact page.
-- **ContactButton.tsx**: A button component used to trigger actions related to contacts (e.g., add new contact).
-- **NewTaskForm.tsx**: A form to create new tasks associated with a contact.
-- **Table.tsx**: Displays contacts in a table format with sortable columns.
+###  `app/src/client/components/ContactPage`
+- **Banner.tsx**: Reusable banner component displayed at the top of the Contact page.
+- **ContactButton.tsx**: Reusable Button Component
+- **NewTaskForm.tsx**: Main Component of the Contact page
+- **Table.tsx**: Table component to display the list of all contacts
 
-#### 📂 `app/src/client/components/ContactPage/Modals`
-- **AddModal.tsx**: Modal window for adding new contacts.
-- **FileUpload.tsx**: Component for uploading contact files.
-- **ScrapeModal.tsx**: Modal for scraping contact data from external sources.
-- **useLocationSearch.ts**: Hook for handling location-based searches within the contact page.
+#### `app/src/client/components/ContactPage/Modals`
+- **AddModal.tsx**: Modal window for adding new contacts Manually.
+- **FileUpload.tsx**: Modal Component for uploading contact files through csv file.
+- **ScrapeModal.tsx**: Modal for scraping contact data from gmaps & other external sources.
 
-### 📂 `app/src/client/components/MailboardPage`
-Contains components related to displaying and managing the mailboard and email statistics.
+### `app/src/client/components/MailboardPage`
+- **Emailcharts.tsx**: A component that displays email campaign statistics and a pie chart visualization.
+- **Statcard.tsx**: A child component of EmailStatusChart that displays statistics
 
-### 📂 `app/src/client/components`
-- **AppNavBar.tsx**: Navigation bar used across the application.
-- **Button.tsx**: Reusable button component with configurable styles and behaviors.
-- **DropdownUser.tsx**: Dropdown menu used for user actions like logging out.
-- **select.tsx**: Custom select input component for forms.
-- **UserMenuItems.tsx**: Menu items displayed under the user dropdown.
-
-## 📂 `app/src/client/hooks`
+##  `app/src/client/hooks`
 - **useColorMode.tsx**: Custom hook for managing light and dark modes.
-- **useLocalStorage.tsx**: Custom hook for interacting with local storage.
-- **useModal.tsx**: Custom hook for managing modal visibility and state.
+- **useLocalStorage.tsx**: Custom hook used for caching.
+- **useModal.tsx**: Custom hook for managing modal functionality , visibility and state.
+- **useLocationSearch.ts**: Hook for handling location-autocomplete and gmaps business data searches.
 
-## 📂 `app/src/client/landing-page`
-- **contentSections.ts**: Content layout for different sections of the landing page.
-- **Customerlogo.tsx**: Displays customer logos on the landing page.
-- **Features.tsx**: Component that highlights key features of the application.
-- **Footer.tsx**: Footer component for the landing page.
-- **LandingPage.tsx**: Main component for the landing page.
-- **Testimonials.tsx**: Displays customer testimonials on the landing page.
+##  `app/src/client/landing-page`
+- Contains Main landing page component and its child components
 
-## 📂 `app/src/client/mails`
-- **default.tsx**: Default email template used for application emails.
-- **template.tsx**: Customizable email template used across different email types.
-- **images/**: Contains images used in the mail templates.
+##  `app/src/client/mails`
+- Contains email templates used in the application
 
-## 📂 `app/src/client/static`
-This folder contains static assets such as images and illustrations used throughout the application:
-- **avatar-placeholder.png**: Placeholder image for user avatars.
-- **da-boi.png**: An image used in a specific context (e.g., branding).
-- **open-saas-banner.jpeg**: A banner image for marketing purposes.
 
-## 📂 `app/src/client/utils`
+## `app/src/client/utils`
 - **Api.ts**: Utility functions for making API calls from the client.
 
-## 📂 `app/src/client`
-- **App.tsx**: Root component of the frontend application, responsible for rendering the main layout and routes.
+##  `app/src/client`
+- **App.tsx**: Root component of the frontend application, responsible for rendering the main layout.
 - **Main.css**: Main CSS file containing global styles for the application.
 
----
 
 
-### `Dashboard client`
+### 📂 `Dashboard client`
 
 ### `app/src/client/admin/layout`
 - **DefaultLayout.tsx**: Reusable layout wrapper with sidebar.
