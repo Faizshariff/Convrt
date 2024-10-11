@@ -609,4 +609,6 @@ This shorter version still explains the problem and the crucial fixes while focu
    Your Wasp application should now be running correctly.
 ```
 
+* * *
 
+<p align="center">Made with ❤️ and ☕</p>
