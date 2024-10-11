@@ -291,7 +291,7 @@ This folder contains all the React child components used in the dashboard pages.
 ### `app/src/server/queries.ts`
 - **queries.ts**: Contains database query functions for retrieving data from the backend.
 
-### `app/src/server/actions.ts**
+### `app/src/server/actions.ts`
 - **actions.ts**: Handles various server-side operations for payments, task management, campaigns, and user updates.
 
 ### `app/src/server/workers`
