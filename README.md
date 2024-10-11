@@ -284,7 +284,7 @@ This folder contains all the react child components used in the dashboard pages.
 
 
 
-### 📂 `Server-side Backend`
+### 📂 `Backend server`
 
 ### `app/src/server`
 - **serverSetup.ts**: Initializes and configures the server, setting up middleware, routes, and any other server-level dependencies.
@@ -335,9 +335,6 @@ This folder manages user authentication and related functionalities.
 
 ---
 
-
-
-### 📂 `Backend server`
 
 
 ## Key Fixes & Improvements
