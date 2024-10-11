@@ -226,7 +226,7 @@ Convrt is a full-stack web application built with Wasp, designed and aimed towar
 - **SignupPage.tsx**: Signup page where new users can create an account.
 
 ## `app/src/client/components`
-This folder contains all reusable React components used throughout the application.
+- This folder contains all reusable React components used throughout the application.
 
 ### `app/src/client/components/CampaignPage`
 - **Campaigncard.tsx**: Displays a card view of individual campaigns with basic details.
@@ -255,10 +255,10 @@ This folder contains all reusable React components used throughout the applicati
 - **useLocationSearch.ts**: Hook for handling location autocomplete and Google Maps business data searches.
 
 ## `app/src/client/landing-page`
-Contains main landing page component and its child components.
+- Contains main landing page component and its child components.
 
 ## `app/src/client/mails`
-Contains email templates used in the application.
+- Contains email templates used in the application.
 
 ## `app/src/client/utils`
 - **Api.ts**: Utility function for making API calls from the client.
