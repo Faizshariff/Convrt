@@ -344,139 +344,126 @@ This folder contains background worker scripts that perform asynchronous tasks.
 
 
 
-
-
-
-### Documentation: Campaign Creation and Email Sending WebApp
----
-
-### 1. **Campaign Creation (`CreateCampaignPage.tsx`)**
-
-### `app/src/client/components/CampaignPage/CreateCampaign.tsx`
-
-This component provides a UI for users to create email campaigns by specifying details like the campaign name, subject, recipient list, and template. It also supports scheduling emails.
-
-#### Key Functionalities:
-- **User Verification**: Checks if the user's email is verified before allowing campaign creation.
-  ```tsx
-  useEffect(() => {
-      if (user.sendEmail) setVerified(true);
-      handleMailExtractClick();
-  }, [user]);
-  ```
-  
-- **Form Inputs**: Users input the campaign name, subject, contact list, and choose a template.
-  ```tsx
-  <FormControl>
-     <Select value={contact} onChange={(e) => setContact(e.target.value as string)}>
-  {sortedUniqueTags.map((tag: any) => ( <MenuItem key={tag} value={tag}>  {tag} </MenuItem> ))}
-   </Select>
-  </FormControl>
-  ```
-
-- **Campaign Submission**: Passes the input data as query parameters to the email composition page (`Write.tsx`).
-  ```tsx
-  const handleCampaign = () => {
-      if (!nameData || !subjectData || !contact) {
-          alert("Please fill in all required fields.");
-          return;
-      }
-      const dataToPass = { name: nameData, subject: subjectData, list: contact, template, schedule: schedule ? time.toISOString() : '' };
-      const queryParams = new URLSearchParams(dataToPass).toString();
-      history.push(`/write?${queryParams}`);
-  };
-  ```
+### Documentation: Modal-Based Data Input and API Fetch for Database Insertion
 
 ---
 
-### 2. **Email Composition (`Write.tsx`)**
-
-### `app/src/client/components/CampaignPage/Write.tsx`
-
-This component manages the email composition, allowing users to edit the content using predefined templates or create a new email. Merge tags are dynamically generated based on the selected task list for personalizing emails.
-
-#### Key Functionalities:
-- **Email Editor**: Uses `react-email-editor` to provide a rich text editor for composing emails.
-  ```tsx
-  <EmailEditor ref={emailEditorRef} minHeight={"90vh"} onLoad={onLoad} onReady={onReady} />
-  ```
-
-- **Dynamic Merge Tags**: Merge tags (e.g., name, email) are generated from task data to personalize the email content.
-  ```tsx
-  const dynamicMergeTags = tasks && key1 ? Object.keys(tasks[0]).reduce((acc, key) => {
-      acc[key] = { name: key.charAt(0).toUpperCase() + key.slice(1), value: `{{${key}}}` };
-      return acc;
-  }, {}) : {};
-  ```
-
-- **Campaign Submission**: Finalizes the email content and submits it to the backend for processing.
-  ```tsx
-  const handleCampaign = async () => {
-      const html = await exportHtml();
-      const filteredTasks = tasks.filter(task => task.Tag === key1);
-      const to = filteredTasks.map(task => task.email);
-      await createCampaign({ name: key4, to, from: user.username, subject: key5, body: html, tag: 'mail-tool', schedule });
-      history.push('/campaign');
-  };
-  ```
+### Key Components:
+1. **CampaignPage.tsx**: Hosts the `CreateCampaignPage` component which contains the UI for the campaign.
+2. **NewTaskForm.tsx**: Provides buttons to open modals and manage different data input methods.
+3. **ScrapeModal.tsx**: Gathers user input, fetches data from an external API, and saves it into the database.
+4. **API.ts**: Handles API calls for fetching location and business data.
+5. **useLocationSearch.ts**: A custom hook for location search and caching results.
 
 ---
 
-### 3. **Backend Logic (`Main.wasp` and `Action.tsx`)**
+### 1. **Page Setup (`CampaignPage.tsx`)**
 
-### `app/src/server/actions.ts`
+The `CampaignPage` acts as a container for campaign-related components and UI. It renders the `CreateCampaignPage`, which includes the buttons for opening modals for adding, uploading, and scraping data.
 
-The backend logic for creating a campaign and sending emails is handled via Wasp actions. The `createCampaign` action stores the campaign details and triggers the email-sending function.
-
-#### Key Functionalities:
-- **Campaign Storage**: The campaign data is stored in the database, linking it to the user and saving email metadata.
-  ```tsx
-  const campaign = await context.entities.Campaign.create({
-      data: {
-          name,
-          Totalmail: to.length,
-          emails: { create: emailData },
-          user: { connect: { id: context.user.id } }
-      },
-  });
-  ```
-
-- **Email Sending**: Emails are sent using the `sendEmail` function, which interacts with the SendGrid API. It supports scheduling and dynamic content with merge tags.
-  ```tsx
-  sendEmail({ to, from, subject, body, tag, schedule, emailIDs, mergeTags, context });
-  ```
+```tsx
+export default function CampaignPage({ user }: { user: User }) {
+    return (
+        <div className='p-6 lg:mt-10 px-4 lg:px-8'>
+            <CreateCampaignPage user={user} />
+        </div>
+    );
+}
+```
 
 ---
 
-### 4. **Email Sending Utility (`sesUtils.tsx`)**
+### 2. **Modal Management (`NewTaskForm.tsx`)**
 
-### `app/src/server/sendmail/sesUtils.ts`
-
-The `sendEmail` function uses SendGrid to send emails in batches to ensure efficient processing. The function handles personalizing each email and managing batch sending.
+The `NewTaskForm` component displays buttons for adding, uploading, and scraping data. Each button opens a corresponding modal.
 
 #### Key Features:
-- **Batch Processing**: Recipients are divided into batches of 1000 for sending emails.
-  ```tsx
-  const batches = chunkArray(to, 1000);
-  const idBatches = chunkArray(emailIDs, 1000);
-  const batchPromises = batches.map((batch, batchIndex) => queue.add(async () => {
-      const personalizations = batch.map((email, index) => {
-          return { to: email, custom_args: { unique_arg: idBatches[batchIndex][index] }, substitutions: { email: task.email, name: task.name } };
-      });
-      await sgMail.sendMultiple(msg);
-  }));
-  ```
+- **Reusable Buttons**: Opens modals for different tasks (e.g., adding data, uploading files, or scraping data).
+- **Modal Hooks**: Custom modal hooks (`useModal`) manage modal visibility.
+- **Three Modals**: Handles input for:
+  - Adding data (`AddTaskModal`)
+  - Uploading files (`FileUploadModal`)
+  - Scraping data from an external API (`ScrapeModal`)
 
-- **Merge Tags**: Personalizes each email using merge tags based on user task data.
-  ```tsx
-  const personalizations = batch.map((email, index) => {
-      const task = tasks.find(task => task.email === email);
-      return {
-          to: email,
-          substitutions: { email: task.email, name: task.name, description: task.description }
-      };
-  });
-  ```
+```tsx
+<ReusableButton onClick={handleOpen3} icon={<AddLocationAltIcon />} label='Scrape Data' />
+<ScrapeModal isOpen={isOpen3} handleClose={handleClose3} isLoading={isLoading} style={style} setIsLoading={setIsLoading} />
+```
+
+---
+
+### 3. **Scraping Data Modal (`ScrapeModal.tsx`)**
+
+The `ScrapeModal` allows users to search for a location and scrape business data from an external API. The fetched data is then validated and inserted into the database.
+
+#### Key Steps:
+1. **Location Autocomplete**: Uses the `useLocationSearch` hook to provide location suggestions based on user input.
+   ```tsx
+   <Autocomplete inputValue={autocompleteInput} options={locationOptions} onInputChange={handleAutocompleteInputChange} />
+   ```
+
+2. **Fetch Business Data**: Fetches business information from an external API (RapidAPI) based on the selected location.
+   ```tsx
+   const data = await fetchBusiness(inputValue, selectedLocation.lat, selectedLocation.lon);
+   ```
+
+3. **Insert Data into Database**: Iterates over the fetched data and inserts valid records into the database using the `createTask` function.
+   ```tsx
+   const taskData = { name, email: emailValue, Tag: inputValue, Location: address, Number: phone_number };
+   await createTask(taskData);
+   ```
+
+4. **Error Handling**: Ensures that missing or invalid data is skipped and logs any errors during the scraping or insertion process.
+
+```tsx
+const handleGetPlaces = async () => {
+    if (!selectedLocation) return;
+    setIsLoading(true);
+    const data = await fetchBusiness(inputValue, selectedLocation.lat, selectedLocation.lon);
+    for (const business of data) {
+        if (name && phone_number && website && address) {
+            await createTask({ name, email: emailValue, Tag: inputValue, Location: address, Number: phone_number });
+        }
+    }
+    setIsLoading(false);
+};
+```
+
+---
+
+### 4. **API Integration (`Api.ts`)**
+
+This file handles API calls to external services such as LocationIQ (for location suggestions) and RapidAPI (for business data).
+
+#### Key Functions:
+1. **Fetch Location Suggestions**: Retrieves location data from LocationIQ based on user input.
+   ```ts
+   export const fetchLocationSuggestions = async (query: string) => {
+       const response = await axios.get(`https://us1.locationiq.com/v1/search?...`);
+       return response.data.map(item => ({ label: item.display_name, lat: item.lat, lon: item.lon }));
+   };
+   ```
+
+2. **Fetch Business Data**: Fetches business data from RapidAPI using latitude and longitude values.
+   ```ts
+   export const fetchBusinessData = async (inputValue: string, lat: string, lon: string) => {
+       const response = await axios.get('https://local-business-data.p.rapidapi.com/search-in-area', {...});
+       return response.data.data;
+   };
+   ```
+
+---
+
+### 5. **Location Search Hook (`useLocationSearch.ts`)**
+
+The `useLocationSearch` custom hook manages location autocomplete suggestions and caching results for efficiency.
+
+#### Key Features:
+- **Debounced Fetch**: Limits API requests by debouncing the input.
+- **Caching**: Stores previous location queries in session storage to reduce repeated API calls.
+   ```ts
+   const debouncedFetch = useMemo(() => debounce(fetchLocations, debounceDelay), [fetchLocations]);
+   ```
 
 ---
 
