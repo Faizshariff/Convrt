@@ -352,7 +352,7 @@ This folder contains background worker scripts that perform asynchronous tasks.
 
 ### 1. **Campaign Creation (`CreateCampaignPage.tsx`)**
 
-## `app/src/client/components/CampaignPage/CreateCampaign.tsx`
+### `app/src/client/components/CampaignPage/CreateCampaign.tsx`
 
 This component provides a UI for users to create email campaigns by specifying details like the campaign name, subject, recipient list, and template. It also supports scheduling emails.
 
@@ -391,7 +391,7 @@ This component provides a UI for users to create email campaigns by specifying d
 
 ### 2. **Email Composition (`Write.tsx`)**
 
-## `app/src/client/components/CampaignPage/Write.tsx`
+### `app/src/client/components/CampaignPage/Write.tsx`
 
 This component manages the email composition, allowing users to edit the content using predefined templates or create a new email. Merge tags are dynamically generated based on the selected task list for personalizing emails.
 
@@ -424,7 +424,7 @@ This component manages the email composition, allowing users to edit the content
 
 ### 3. **Backend Logic (`Main.wasp` and `Action.tsx`)**
 
-## `app/src/server/actions.ts`
+### `app/src/server/actions.ts`
 
 The backend logic for creating a campaign and sending emails is handled via Wasp actions. The `createCampaign` action stores the campaign details and triggers the email-sending function.
 
@@ -450,7 +450,7 @@ The backend logic for creating a campaign and sending emails is handled via Wasp
 
 ### 4. **Email Sending Utility (`sesUtils.tsx`)**
 
-## `app/src/server/sendmail/sesUtils.ts`
+### `app/src/server/sendmail/sesUtils.ts`
 
 The `sendEmail` function uses SendGrid to send emails in batches to ensure efficient processing. The function handles personalizing each email and managing batch sending.
 
